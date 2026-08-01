@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trennungsunterhalt berechnen 2026 — Rechner nach § 1361 BGB</title>
+<meta name="description" content="Trennungsunterhalt berechnen für die Zeit der Trennung nach § 1361 BGB. Amtliche 45%/50%-Methode, kostenlos und unverbindlich.">
+<link rel="canonical" href="https://unterhalt-rechner.com/trennungsunterhalt-rechner/">
+<meta property="og:title" content="Trennungsunterhalt berechnen 2026 — Rechner nach § 1361 BGB">
+<meta property="og:description" content="Trennungsunterhalt berechnen für die Zeit der Trennung nach § 1361 BGB. Amtliche 45%/50%-Methode, kostenlos und unverbindlich.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://unterhalt-rechner.com/trennungsunterhalt-rechner/">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://unterhalt-rechner.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"unterhalt-rechner.com","url":"https://unterhalt-rechner.com/","publisher":{"@type":"Organization","name":"Gesmine-Invest Limited"}},{"@type":"WebApplication","name":"Trennungsunterhalt-Rechner","url":"https://unterhalt-rechner.com/trennungsunterhalt-rechner/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"areaServed":"DE"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ab wann steht mir Trennungsunterhalt zu?","acceptedAnswer":{"@type":"Answer","text":"Ab dem Zeitpunkt der Trennung (§ 1361 BGB), unabhängig davon, ob bereits ein Scheidungsantrag gestellt wurde. Voraussetzung ist eine Bedürftigkeit des Berechtigten und Leistungsfähigkeit des Pflichtigen."}},{"@type":"Question","name":"Muss ich während der Trennung arbeiten gehen?","acceptedAnswer":{"@type":"Answer","text":"Im ersten Trennungsjahr besteht in der Regel keine Erwerbsobliegenheit, danach kann abhängig von Kinderbetreuung, Alter und bisheriger Erwerbsbiografie eine (Teilzeit-)Erwerbstätigkeit erwartet werden."}},{"@type":"Question","name":"Kann sich Trennungsunterhalt ändern, wenn ich mich scheiden lasse?","acceptedAnswer":{"@type":"Answer","text":"Ja — nach der Scheidung gilt der nacheheliche Unterhalt (§§ 1569 ff. BGB), der strengeren Voraussetzungen unterliegt als der Trennungsunterhalt. Die Berechnungsformel selbst bleibt identisch (45%/50%-Methode)."}},{"@type":"Question","name":"Wird Trennungsunterhalt miete abgezogen?","acceptedAnswer":{"@type":"Answer","text":"Wohnkosten können bei der Ermittlung des bereinigten Nettoeinkommens (Abzugsposten) eine Rolle spielen, insbesondere wenn ein Ehegatte die gemeinsame Wohnung allein weiter finanziert. Dies ist einzelfallabhängig und nicht pauschal in diesem Rechner abgebildet — anwaltliche Prüfung empfohlen."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unterhaltsrechner","item":"https://unterhalt-rechner.com/"},{"@type":"ListItem","position":2,"name":"Trennungsunterhalt-Rechner","item":"https://unterhalt-rechner.com/trennungsunterhalt-rechner/"}]}]}</script>
+</head>
+<body>
+<header class="">
+  <span class="flag">⚖️ 🇩🇪</span>
+  <h1>Trennungsunterhalt-Rechner</h1>
+  <p class="tagline">Unterhalt während der Trennungszeit berechnen — § 1361 BGB</p>
+  <nav class="site-nav"><a href="/" class="">Unterhaltsrechner</a><a href="/kindesunterhalt-rechner/" class="">Kindesunterhalt</a><a href="/ehegattenunterhalt-rechner/" class="">Ehegattenunterhalt</a><a href="/trennungsunterhalt-rechner/" class="current">Trennungsunterhalt</a><a href="/unterhaltstabelle/" class="">Tabelle</a><a href="/selbstbehalt/" class="">Selbstbehalt</a><a href="/wechselmodell/" class="">Wechselmodell</a><a href="/unterhalt-ab-18/" class="">Ab 18</a><a href="/jugendamt-berechnung/" class="">Jugendamt</a></nav>
+</header>
+
+<div class="tool-wrapper container">
+  <div class="tool-card no-tabs">
+    <div class="disclaimer-banner"><strong>Hinweis:</strong> Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Nettoeinkommen (höher verdienender Ehegatte)</label><input type="number" id="t2-pflichtig" value="3500" min="0"></div>
+      <div class="form-group"><label>Nettoeinkommen (anderer Ehegatte)</label><input type="number" id="t2-berechtigt" value="1200" min="0"></div>
+      <div class="form-group full">
+        <label>Höher verdienender Ehegatte ist</label>
+        <div class="radio-group">
+          <div class="radio-opt"><input type="radio" name="t2-erwerb" id="t2-erwerb-ja" checked><label for="t2-erwerb-ja">Erwerbstätig (45%)</label></div>
+          <div class="radio-opt"><input type="radio" name="t2-erwerb" id="t2-erwerb-nein"><label for="t2-erwerb-nein">Nicht erwerbstätig (50%)</label></div>
+        </div>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcTrennDetail()">Trennungsunterhalt berechnen</button>
+    <div class="result" id="result-t2">
+      <div class="result-hero"><div class="r-label">Monatlicher Trennungsunterhalt</div><div class="r-amount" id="t2-out-betrag">–</div></div>
+      <div class="result-grid">
+        <div class="r-stat"><div class="sv" id="t2-out-quote">–</div><div class="sl">Quote</div></div>
+        <div class="r-stat"><div class="sv" id="t2-out-diff">–</div><div class="sl">Einkommensdifferenz</div></div>
+        <div class="r-stat"><div class="sv" id="t2-out-selbst">–</div><div class="sl">Selbstbehalt</div></div>
+      </div>
+      <div class="result-note" id="t2-out-note"></div>
+    </div>
+  </div>
+</div>
+
+<div class="content container">
+  <h2 class="section-title">Trennungsunterhalt berechnen</h2>
+  <p>Trennungsunterhalt (§ 1361 BGB) steht dem bedürftigen Ehegatten ab dem Zeitpunkt der Trennung zu — unabhängig vom späteren Scheidungsverfahren. Die Berechnung folgt derselben amtlichen 45%/50%-Differenzmethode wie der nacheheliche Unterhalt.</p>
+  <div class="index-formula">Trennungsunterhalt = 45% × (Einkommen höher verdienender Ehegatte − Einkommen anderer Ehegatte)<br>(50% falls Pflichtiger nicht erwerbstätig)</div>
+  <p>Im Unterschied zum nachehelichen Unterhalt ist während der Trennungszeit die Erwerbsobliegenheit des bedürftigen Ehegatten in der Regel geringer — vor allem im ersten Trennungsjahr wird meist keine sofortige Vollzeittätigkeit erwartet.</p>
+
+  <h2 class="section-title">Häufige Fragen</h2>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Ab wann steht mir Trennungsunterhalt zu?</button><div class="faq-a"><p>Ab dem Zeitpunkt der Trennung (§ 1361 BGB), unabhängig davon, ob bereits ein Scheidungsantrag gestellt wurde. Voraussetzung ist eine Bedürftigkeit des Berechtigten und Leistungsfähigkeit des Pflichtigen.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Muss ich während der Trennung arbeiten gehen?</button><div class="faq-a"><p>Im ersten Trennungsjahr besteht in der Regel keine Erwerbsobliegenheit, danach kann abhängig von Kinderbetreuung, Alter und bisheriger Erwerbsbiografie eine (Teilzeit-)Erwerbstätigkeit erwartet werden.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Kann sich Trennungsunterhalt ändern, wenn ich mich scheiden lasse?</button><div class="faq-a"><p>Ja — nach der Scheidung gilt der nacheheliche Unterhalt (§§ 1569 ff. BGB), der strengeren Voraussetzungen unterliegt als der Trennungsunterhalt. Die Berechnungsformel selbst bleibt identisch (45%/50%-Methode).</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Wird Trennungsunterhalt miete abgezogen?</button><div class="faq-a"><p>Wohnkosten können bei der Ermittlung des bereinigten Nettoeinkommens (Abzugsposten) eine Rolle spielen, insbesondere wenn ein Ehegatte die gemeinsame Wohnung allein weiter finanziert. Dies ist einzelfallabhängig und nicht pauschal in diesem Rechner abgebildet — anwaltliche Prüfung empfohlen.</p></div></div>
+</div>
+<div class="eeat-section">
+      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
+    </div>
+
+<footer>
+    <p>&copy; 2026 unterhalt-rechner.com — ein Angebot von Gesmine-Invest Limited</p>
+    <p style="margin-top:6px;font-size:0.85rem;">Alle Berechnungen sind unverbindlich und ersetzen keine Rechtsberatung.</p>
+    <div class="foot-links">
+      <a href="/about/">Über uns</a>·<a href="/impressum/">Impressum</a>·<a href="/datenschutz/">Datenschutz</a>
+    </div>
+  </footer>
+<script src="/assets/calc-engine.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+function calcTrennDetail() {
+  var pflichtig = parseFloat(document.getElementById('t2-pflichtig').value) || 0;
+  var berechtigt = parseFloat(document.getElementById('t2-berechtigt').value) || 0;
+  var erwerbstaetig = document.getElementById('t2-erwerb-ja').checked;
+  var res = berechneEhegattenunterhalt(pflichtig, berechtigt, erwerbstaetig);
+  document.getElementById('t2-out-betrag').textContent = euro(res.unterhalt);
+  document.getElementById('t2-out-quote').textContent = res.quote + '%';
+  document.getElementById('t2-out-diff').textContent = euro(Math.max(0, pflichtig - berechtigt));
+  document.getElementById('t2-out-selbst').textContent = euro(res.selbstbehalt);
+  var note = document.getElementById('t2-out-note');
+  if (res.selbstbehaltUnterschritten) {
+    note.textContent = 'Der rechnerische Unterhalt wurde auf den Selbstbehalt des Pflichtigen begrenzt.';
+    note.classList.add('warn');
+  } else {
+    note.textContent = 'Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.';
+    note.classList.remove('warn');
+  }
+  showResult('result-t2');
+}
+</script>
+</body>
+</html>

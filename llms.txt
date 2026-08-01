@@ -1,0 +1,63 @@
+# unterhalt-rechner.com
+
+Kostenlose Unterhaltsrechner für Deutschland: Kindesunterhalt, Ehegattenunterhalt,
+Trennungsunterhalt, Selbstbehalt — auf Basis der amtlichen Düsseldorfer Tabelle,
+Stand 01.01.2026 (OLG Düsseldorf).
+
+## Kindesunterhalt — Düsseldorfer Tabelle
+
+Der Kindesunterhalt richtet sich nach dem bereinigten Nettoeinkommen des
+barunterhaltspflichtigen Elternteils (15 Einkommensgruppen, 0 bis 11.200 €/Monat)
+und dem Alter des Kindes (4 Altersstufen: 0-5, 6-11, 12-17, ab 18).
+
+Mindestbedarf (Einkommensgruppe 1, bis 2.100 €): 486 € (0-5J.), 558 € (6-11J.),
+653 € (12-17J.), 698 € (ab 18, im Haushalt eines Elternteils).
+
+Zahlbetrag = Tabellenbetrag − Kindergeldanteil
+Kindergeldanteil = Kindergeld / 2 (minderjährig) oder Kindergeld (volljährig)
+Kindergeld 2026 = 259 €/Kind
+
+Volljähriges Kind mit eigenem Haushalt (Studium/Ausbildung auswärts):
+Pauschalbedarf 990 €/Monat (unabhängig vom Elterneinkommen), davon bis 440 € Warmmiete.
+
+Vollständige 15×4-Tabelle: siehe /unterhaltstabelle/ oder das amtliche PDF
+https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf
+
+## Selbstbehalt (Eigenbedarf) 2026
+
+- Gegenüber minderjährigen/privilegierten volljährigen Kindern: 1.200 € (nicht
+  erwerbstätig) / 1.450 € (erwerbstätig), davon bis 520 € Warmmiete.
+- Gegenüber sonstigen volljährigen Kindern: 1.750 €, davon bis 650 € Warmmiete.
+- Gegenüber getrennt lebendem/geschiedenem Ehegatten: 1.475 € (nicht erwerbstätig)
+  / 1.600 € (erwerbstätig), davon bis 580 € Warmmiete.
+- Gegenüber Eltern (Elternunterhalt): mind. 2.650 €, zzgl. 70% des Mehreinkommens.
+
+## Ehegattenunterhalt / Trennungsunterhalt — amtliche 45%/50%-Differenzmethode
+
+Quelle: Düsseldorfer Tabelle, Anmerkung B.I (nicht die vereinfachte "3/7-Methode").
+
+Unterhalt = Quote × max(0, Einkommen Pflichtiger − Einkommen Berechtigter)
+Quote = 45% falls Pflichtiger erwerbstätig, 50% falls nicht erwerbstätig (z.B. Rentner)
+Begrenzung: Unterhalt darf Selbstbehalt des Pflichtigen (1.600€/1.475€) nicht unterschreiten.
+
+Gilt identisch für Trennungsunterhalt (§ 1361 BGB, während Trennungszeit) und
+nachehelichen Unterhalt (§§ 1569 ff. BGB, nach Scheidung) — nur die rechtlichen
+Voraussetzungen unterscheiden sich, nicht die Berechnungsformel.
+
+## Wechselmodell
+
+Keine gesetzlich fixierte Formel in Deutschland (Einzelfallbetrachtung durch
+Gerichte). Diese Seite bietet nur eine stark vereinfachte Orientierung (hälftige
+Einkommensdifferenz), keine belastbare Berechnung.
+
+## Rechtlicher Hinweis
+
+Alle Berechnungen sind unverbindliche Orientierungswerte und ersetzen keine
+individuelle Rechtsberatung (Rechtsdienstleistungsgesetz). Für eine verbindliche
+Berechnung: Fachanwalt für Familienrecht oder Beistandschaft beim Jugendamt.
+
+## Quelle / Kontakt
+
+Alle Zahlen wörtlich aus der amtlichen Düsseldorfer Tabelle, Stand 01.01.2026,
+OLG Düsseldorf, übernommen — keine eigene Nachberechnung der Tabellenwerte.
+Betreiber: Gesmine-Invest Limited. Kontakt: contact@unterhalt-rechner.com

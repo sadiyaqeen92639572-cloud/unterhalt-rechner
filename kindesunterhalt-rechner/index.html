@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kindesunterhalt berechnen 2026 — Rechner nach Düsseldorfer Tabelle</title>
+<meta name="description" content="Kindesunterhalt berechnen für mehrere Kinder nach der Düsseldorfer Tabelle 2026, inkl. Kindergeldanrechnung. Kostenlos und unverbindlich.">
+<link rel="canonical" href="https://unterhalt-rechner.com/kindesunterhalt-rechner/">
+<meta property="og:title" content="Kindesunterhalt berechnen 2026 — Rechner nach Düsseldorfer Tabelle">
+<meta property="og:description" content="Kindesunterhalt berechnen für mehrere Kinder nach der Düsseldorfer Tabelle 2026, inkl. Kindergeldanrechnung. Kostenlos und unverbindlich.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://unterhalt-rechner.com/kindesunterhalt-rechner/">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://unterhalt-rechner.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"unterhalt-rechner.com","url":"https://unterhalt-rechner.com/","publisher":{"@type":"Organization","name":"Gesmine-Invest Limited"}},{"@type":"WebApplication","name":"Kindesunterhalt-Rechner","url":"https://unterhalt-rechner.com/kindesunterhalt-rechner/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"areaServed":"DE"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Wie werden mehrere Kinder bei der Düsseldorfer Tabelle berücksichtigt?","acceptedAnswer":{"@type":"Answer","text":"Die Tabelle geht im Regelfall von zwei Unterhaltsberechtigten aus (Anmerkung I). Bei einer größeren oder geringeren Anzahl können Ab- oder Zuschläge durch Einstufung in eine niedrigere oder höhere Einkommensgruppe angemessen sein — dies liegt im gerichtlichen Ermessen und folgt keiner festen Formel. Bei 3 oder mehr unterhaltsberechtigten Personen empfehlen wir eine anwaltliche Einzelfallprüfung, da wir hier keine erfundene Herabstufungsregel anwenden."}},{"@type":"Question","name":"Was bedeutet \"unterhalt mehrere kinder\"?","acceptedAnswer":{"@type":"Answer","text":"Je mehr unterhaltsberechtigte Kinder ein Elternteil hat, desto mehr wird das verfügbare Einkommen aufgeteilt. Reicht das Einkommen nicht für den Mindestbedarf aller Kinder, kommt es zur Mangelfallberechnung (siehe Anmerkung C der Düsseldorfer Tabelle) — hier haben Kinder laut § 1609 Nr. 1 BGB Vorrang vor anderen Unterhaltsberechtigten."}},{"@type":"Question","name":"Zählt das Kindergeld für jedes Kind gleich?","acceptedAnswer":{"@type":"Answer","text":"Ja, das Kindergeld beträgt 2026 einheitlich 259 € je Kind, unabhängig von der Geburtenfolge. Bei minderjährigen Kindern wird die Hälfte (129,50 €) auf den Unterhalt angerechnet, bei volljährigen Kindern das volle Kindergeld."}},{"@type":"Question","name":"Was ist beim Wechselmodell anders?","acceptedAnswer":{"@type":"Answer","text":"Die Düsseldorfer Tabelle gilt für das Residenzmodell (ein Elternteil betreut hauptsächlich). Beim echten Wechselmodell (annähernd hälftige Betreuung) gibt es keine feste gesetzliche Formel — siehe unseren Wechselmodell-Rechner."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unterhaltsrechner","item":"https://unterhalt-rechner.com/"},{"@type":"ListItem","position":2,"name":"Kindesunterhalt-Rechner","item":"https://unterhalt-rechner.com/kindesunterhalt-rechner/"}]}]}</script>
+</head>
+<body>
+<header class="">
+  <span class="flag">⚖️ 🇩🇪</span>
+  <h1>Kindesunterhalt-Rechner</h1>
+  <p class="tagline">Kindesunterhalt für 1-4 Kinder berechnen — Düsseldorfer Tabelle 2026</p>
+  <nav class="site-nav"><a href="/" class="">Unterhaltsrechner</a><a href="/kindesunterhalt-rechner/" class="current">Kindesunterhalt</a><a href="/ehegattenunterhalt-rechner/" class="">Ehegattenunterhalt</a><a href="/trennungsunterhalt-rechner/" class="">Trennungsunterhalt</a><a href="/unterhaltstabelle/" class="">Tabelle</a><a href="/selbstbehalt/" class="">Selbstbehalt</a><a href="/wechselmodell/" class="">Wechselmodell</a><a href="/unterhalt-ab-18/" class="">Ab 18</a><a href="/jugendamt-berechnung/" class="">Jugendamt</a></nav>
+</header>
+
+<div class="tool-wrapper container">
+  <div class="tool-card no-tabs">
+    <div class="disclaimer-banner"><strong>Hinweis:</strong> Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Bereinigtes Nettoeinkommen (Pflichtiger)</label>
+        <input type="number" id="k2-einkommen" value="3200" min="0">
+      </div>
+      <div class="form-group">
+        <label>Anzahl unterhaltsberechtigter Kinder</label>
+        <select id="k2-anzahl" onchange="renderKidAgeInputs()">
+          <option value="1">1 Kind</option>
+          <option value="2" selected>2 Kinder</option>
+          <option value="3">3 Kinder</option>
+          <option value="4">4 Kinder</option>
+        </select>
+      </div>
+      <div class="form-group full" id="k2-ages"></div>
+    </div>
+    <button class="calc-btn" onclick="calcKindDetail()">Kindesunterhalt berechnen</button>
+    <div class="result" id="result-k2">
+      <div class="result-hero">
+        <div class="r-label">Gesamter Zahlbetrag / Monat</div>
+        <div class="r-amount" id="k2-out-total">–</div>
+      </div>
+      <div id="k2-per-child"></div>
+      <div class="result-note" id="k2-out-note"></div>
+    </div>
+  </div>
+</div>
+
+<div class="content container">
+  <h2 class="section-title">Kindesunterhalt berechnen — so funktioniert die Düsseldorfer Tabelle</h2>
+  <p>Der Kindesunterhalt richtet sich nach zwei Faktoren: dem bereinigten Nettoeinkommen des barunterhaltspflichtigen Elternteils (Einstufung in eine von 15 Einkommensgruppen) und dem Alter des Kindes (4 Altersstufen). Der resultierende Tabellenbetrag ist der Bedarf — davon wird das anteilige Kindergeld abgezogen, um den tatsächlichen Zahlbetrag zu erhalten.</p>
+  <div class="index-formula">Zahlbetrag = Tabellenbetrag(Einkommensgruppe, Altersstufe) − Kindergeldanteil</div>
+  <p>Bei mehreren Kindern wird jedes Kind einzeln nach seiner Altersstufe berechnet, aber die Einkommensgruppe basiert auf dem Regelfall von zwei Unterhaltsberechtigten. Bei abweichender Anzahl können Ab- oder Zuschläge angemessen sein — eine feste Formel dafür gibt es nicht, hier braucht es im Zweifel eine anwaltliche Einschätzung.</p>
+
+  <h2 class="section-title">Häufige Fragen</h2>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Wie werden mehrere Kinder bei der Düsseldorfer Tabelle berücksichtigt?</button><div class="faq-a"><p>Die Tabelle geht im Regelfall von zwei Unterhaltsberechtigten aus (Anmerkung I). Bei einer größeren oder geringeren Anzahl können Ab- oder Zuschläge durch Einstufung in eine niedrigere oder höhere Einkommensgruppe angemessen sein — dies liegt im gerichtlichen Ermessen und folgt keiner festen Formel. Bei 3 oder mehr unterhaltsberechtigten Personen empfehlen wir eine anwaltliche Einzelfallprüfung, da wir hier keine erfundene Herabstufungsregel anwenden.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Was bedeutet "unterhalt mehrere kinder"?</button><div class="faq-a"><p>Je mehr unterhaltsberechtigte Kinder ein Elternteil hat, desto mehr wird das verfügbare Einkommen aufgeteilt. Reicht das Einkommen nicht für den Mindestbedarf aller Kinder, kommt es zur Mangelfallberechnung (siehe Anmerkung C der Düsseldorfer Tabelle) — hier haben Kinder laut § 1609 Nr. 1 BGB Vorrang vor anderen Unterhaltsberechtigten.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Zählt das Kindergeld für jedes Kind gleich?</button><div class="faq-a"><p>Ja, das Kindergeld beträgt 2026 einheitlich 259 € je Kind, unabhängig von der Geburtenfolge. Bei minderjährigen Kindern wird die Hälfte (129,50 €) auf den Unterhalt angerechnet, bei volljährigen Kindern das volle Kindergeld.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Was ist beim Wechselmodell anders?</button><div class="faq-a"><p>Die Düsseldorfer Tabelle gilt für das Residenzmodell (ein Elternteil betreut hauptsächlich). Beim echten Wechselmodell (annähernd hälftige Betreuung) gibt es keine feste gesetzliche Formel — siehe unseren <a href="/wechselmodell/">Wechselmodell-Rechner</a>.</p></div></div>
+</div>
+<div class="eeat-section">
+      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
+    </div>
+
+<footer>
+    <p>&copy; 2026 unterhalt-rechner.com — ein Angebot von Gesmine-Invest Limited</p>
+    <p style="margin-top:6px;font-size:0.85rem;">Alle Berechnungen sind unverbindlich und ersetzen keine Rechtsberatung.</p>
+    <div class="foot-links">
+      <a href="/about/">Über uns</a>·<a href="/impressum/">Impressum</a>·<a href="/datenschutz/">Datenschutz</a>
+    </div>
+  </footer>
+<script src="/assets/calc-engine.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+function renderKidAgeInputs() {
+  var n = parseInt(document.getElementById('k2-anzahl').value) || 1;
+  var wrap = document.getElementById('k2-ages');
+  var html = '<label>Alter der Kinder</label><div class="form-grid" style="margin-top:6px">';
+  for (var i = 0; i < n; i++) {
+    html += '<input type="number" class="k2-age-input" min="0" max="25" value="' + (8 + i * 3) + '" style="margin-bottom:6px">';
+  }
+  html += '</div>';
+  wrap.innerHTML = html;
+}
+function calcKindDetail() {
+  var einkommen = parseFloat(document.getElementById('k2-einkommen').value) || 0;
+  var ageInputs = document.querySelectorAll('.k2-age-input');
+  var total = 0;
+  var rowsHtml = '<div class="table-wrap"><table class="dt-table"><tr><th>Kind</th><th>Alter</th><th>Bedarf</th><th>Kindergeld</th><th>Zahlbetrag</th></tr>';
+  var ueberTabelle = false;
+  ageInputs.forEach(function (inp, i) {
+    var alter = parseInt(inp.value) || 0;
+    var res = berechneKindesunterhalt(einkommen, alter);
+    if (res.ueberTabelle) { ueberTabelle = true; return; }
+    total += res.zahlbetrag;
+    rowsHtml += '<tr><td>Kind ' + (i + 1) + '</td><td>' + alter + ' J.</td><td>' + euro(res.bedarf) + '</td><td>' + euro(res.kindergeldAnteil) + '</td><td><strong>' + euro(res.zahlbetrag) + '</strong></td></tr>';
+  });
+  rowsHtml += '</table></div>';
+  document.getElementById('k2-per-child').innerHTML = rowsHtml;
+  if (ueberTabelle) {
+    document.getElementById('k2-out-total').textContent = 'über Tabelle';
+    document.getElementById('k2-out-note').textContent = 'Einkommen über 11.200 € — außerhalb der Tabelle, individuelle Berechnung nötig.';
+    document.getElementById('k2-out-note').classList.add('warn');
+  } else {
+    document.getElementById('k2-out-total').textContent = euro(total);
+    document.getElementById('k2-out-note').textContent = ageInputs.length !== 2 ? 'Hinweis: Die Tabelle geht vom Regelfall zweier Unterhaltsberechtigter aus. Bei ' + ageInputs.length + ' Kindern kann eine Ab- oder Höherstufung angemessen sein — nicht automatisch berücksichtigt, bitte anwaltlich prüfen lassen.' : 'Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.';
+    document.getElementById('k2-out-note').classList.toggle('warn', ageInputs.length !== 2);
+  }
+  showResult('result-k2');
+}
+document.addEventListener('DOMContentLoaded', renderKidAgeInputs);
+</script>
+</body>
+</html>

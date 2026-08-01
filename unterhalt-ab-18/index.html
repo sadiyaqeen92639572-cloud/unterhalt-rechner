@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unterhalt ab 18 berechnen 2026 — volljährige Kinder</title>
+<meta name="description" content="Unterhalt für volljährige Kinder ab 18 berechnen: Pauschalbedarf 990€ bei eigenem Haushalt oder Tabellenbetrag bei Eltern wohnhaft.">
+<link rel="canonical" href="https://unterhalt-rechner.com/unterhalt-ab-18/">
+<meta property="og:title" content="Unterhalt ab 18 berechnen 2026 — volljährige Kinder">
+<meta property="og:description" content="Unterhalt für volljährige Kinder ab 18 berechnen: Pauschalbedarf 990€ bei eigenem Haushalt oder Tabellenbetrag bei Eltern wohnhaft.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://unterhalt-rechner.com/unterhalt-ab-18/">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://unterhalt-rechner.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"unterhalt-rechner.com","url":"https://unterhalt-rechner.com/","publisher":{"@type":"Organization","name":"Gesmine-Invest Limited"}},{"@type":"WebApplication","name":"Unterhalt ab 18","url":"https://unterhalt-rechner.com/unterhalt-ab-18/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"areaServed":"DE"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ändert sich der Unterhalt automatisch mit 18?","acceptedAnswer":{"@type":"Answer","text":"Ja, das Kind wechselt in die 4. Altersstufe der Düsseldorfer Tabelle (höherer Bedarfssatz). Außerdem wird jetzt das volle Kindergeld angerechnet (statt der Hälfte bei Minderjährigen), und beide Elternteile sind anteilig nach ihrem Einkommen barunterhaltspflichtig (nicht mehr nur der nicht betreuende Elternteil)."}},{"@type":"Question","name":"Was gilt für Kinder in Ausbildung oder Studium?","acceptedAnswer":{"@type":"Answer","text":"Lebt das volljährige Kind noch bei einem Elternteil, gilt weiterhin die 4. Altersstufe der Tabelle. Zieht es für Ausbildung/Studium aus, gilt ein Pauschalbedarf von 990 €/Monat (davon bis 440 € Warmmiete), unabhängig vom Elterneinkommen."}},{"@type":"Question","name":"Muss mein volljähriges Kind selbst etwas beitragen?","acceptedAnswer":{"@type":"Answer","text":"Ja, eigenes Einkommen (z. B. Ausbildungsvergütung abzüglich ausbildungsbedingter Mehrkosten und eines Freibetrags) wird auf den Unterhaltsbedarf angerechnet."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unterhaltsrechner","item":"https://unterhalt-rechner.com/"},{"@type":"ListItem","position":2,"name":"Unterhalt ab 18","item":"https://unterhalt-rechner.com/unterhalt-ab-18/"}]}]}</script>
+</head>
+<body>
+<header class="">
+  <span class="flag">⚖️ 🇩🇪</span>
+  <h1>Unterhalt ab 18</h1>
+  <p class="tagline">Kindesunterhalt für volljährige Kinder — Ausbildung, Studium, eigener Haushalt</p>
+  <nav class="site-nav"><a href="/" class="">Unterhaltsrechner</a><a href="/kindesunterhalt-rechner/" class="">Kindesunterhalt</a><a href="/ehegattenunterhalt-rechner/" class="">Ehegattenunterhalt</a><a href="/trennungsunterhalt-rechner/" class="">Trennungsunterhalt</a><a href="/unterhaltstabelle/" class="">Tabelle</a><a href="/selbstbehalt/" class="">Selbstbehalt</a><a href="/wechselmodell/" class="">Wechselmodell</a><a href="/unterhalt-ab-18/" class="current">Ab 18</a><a href="/jugendamt-berechnung/" class="">Jugendamt</a></nav>
+</header>
+
+<div class="tool-wrapper container">
+  <div class="tool-card no-tabs">
+    <div class="disclaimer-banner"><strong>Hinweis:</strong> Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Situation des volljährigen Kindes</label>
+        <div class="radio-group">
+          <div class="radio-opt"><input type="radio" name="ab18-typ" id="ab18-zuhause" checked><label for="ab18-zuhause">Lebt bei einem Elternteil</label></div>
+          <div class="radio-opt"><input type="radio" name="ab18-typ" id="ab18-ausbildung"><label for="ab18-ausbildung">Eigener Haushalt / Studium auswärts</label></div>
+        </div>
+      </div>
+      <div class="form-group" id="ab18-einkommen-wrap"><label>Summe bereinigtes Nettoeinkommen beider Eltern</label><input type="number" id="ab18-einkommen" value="4200" min="0"></div>
+    </div>
+    <button class="calc-btn" onclick="calcAb18()">Bedarf berechnen</button>
+    <div class="result" id="result-ab18">
+      <div class="result-hero"><div class="r-label">Monatlicher Bedarf</div><div class="r-amount" id="ab18-out-betrag">–</div><div class="r-sub" id="ab18-out-sub"></div></div>
+      <div class="result-note">Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content container">
+  <h2 class="section-title">Unterhalt für volljährige Kinder</h2>
+  <p>Mit Eintritt der Volljährigkeit ändert sich die Unterhaltsberechnung in mehreren Punkten: Beide Elternteile werden nach ihrem Einkommensanteil barunterhaltspflichtig, das volle Kindergeld wird angerechnet, und bei einem eigenen Haushalt (Studium/Ausbildung auswärts) gilt ein fester Pauschalbedarf von 990 €/Monat statt der einkommensabhängigen Tabelle.</p>
+  <div class="index-formula">Bedarf (bei eigenem Haushalt) = 990 € pauschal (davon bis 440 € Warmmiete)<br>Bedarf (bei Eltern wohnhaft) = Tabellenbetrag nach Altersstufe 4, Einkommensgruppe der Eltern</div>
+
+  <h2 class="section-title">Häufige Fragen</h2>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Ändert sich der Unterhalt automatisch mit 18?</button><div class="faq-a"><p>Ja, das Kind wechselt in die 4. Altersstufe der Düsseldorfer Tabelle (höherer Bedarfssatz). Außerdem wird jetzt das volle Kindergeld angerechnet (statt der Hälfte bei Minderjährigen), und beide Elternteile sind anteilig nach ihrem Einkommen barunterhaltspflichtig (nicht mehr nur der nicht betreuende Elternteil).</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Was gilt für Kinder in Ausbildung oder Studium?</button><div class="faq-a"><p>Lebt das volljährige Kind noch bei einem Elternteil, gilt weiterhin die 4. Altersstufe der Tabelle. Zieht es für Ausbildung/Studium aus, gilt ein Pauschalbedarf von 990 €/Monat (davon bis 440 € Warmmiete), unabhängig vom Elterneinkommen.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Muss mein volljähriges Kind selbst etwas beitragen?</button><div class="faq-a"><p>Ja, eigenes Einkommen (z. B. Ausbildungsvergütung abzüglich ausbildungsbedingter Mehrkosten und eines Freibetrags) wird auf den Unterhaltsbedarf angerechnet.</p></div></div>
+</div>
+<div class="eeat-section">
+      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
+    </div>
+
+<footer>
+    <p>&copy; 2026 unterhalt-rechner.com — ein Angebot von Gesmine-Invest Limited</p>
+    <p style="margin-top:6px;font-size:0.85rem;">Alle Berechnungen sind unverbindlich und ersetzen keine Rechtsberatung.</p>
+    <div class="foot-links">
+      <a href="/about/">Über uns</a>·<a href="/impressum/">Impressum</a>·<a href="/datenschutz/">Datenschutz</a>
+    </div>
+  </footer>
+<script src="/assets/calc-engine.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+function calcAb18() {
+  var ausbildung = document.getElementById('ab18-ausbildung').checked;
+  if (ausbildung) {
+    document.getElementById('ab18-out-betrag').textContent = euro(990);
+    document.getElementById('ab18-out-sub').textContent = 'Pauschalbedarf, unabhängig vom Elterneinkommen (davon bis 440 € Warmmiete)';
+  } else {
+    var einkommen = parseFloat(document.getElementById('ab18-einkommen').value) || 0;
+    var res = berechneKindesunterhalt(einkommen, 18);
+    if (res.ueberTabelle) {
+      document.getElementById('ab18-out-betrag').textContent = 'über Tabelle';
+      document.getElementById('ab18-out-sub').textContent = 'Einkommen > 11.200 € — individuelle Berechnung nötig';
+    } else {
+      document.getElementById('ab18-out-betrag').textContent = euro(res.bedarf);
+      document.getElementById('ab18-out-sub').textContent = 'Tabellenbetrag Altersstufe 4 (ab 18), Einkommensgruppe ' + res.bracket;
+    }
+  }
+  showResult('result-ab18');
+}
+</script>
+</body>
+</html>

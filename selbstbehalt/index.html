@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selbstbehalt beim Unterhalt 2026 — Rechner & Übersicht</title>
+<meta name="description" content="Selbstbehalt 2026 gegenüber Kindern, Ehegatten und Eltern berechnen. Notwendiger und angemessener Selbstbehalt nach Düsseldorfer Tabelle.">
+<link rel="canonical" href="https://unterhalt-rechner.com/selbstbehalt/">
+<meta property="og:title" content="Selbstbehalt beim Unterhalt 2026 — Rechner & Übersicht">
+<meta property="og:description" content="Selbstbehalt 2026 gegenüber Kindern, Ehegatten und Eltern berechnen. Notwendiger und angemessener Selbstbehalt nach Düsseldorfer Tabelle.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://unterhalt-rechner.com/selbstbehalt/">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://unterhalt-rechner.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"unterhalt-rechner.com","url":"https://unterhalt-rechner.com/","publisher":{"@type":"Organization","name":"Gesmine-Invest Limited"}},{"@type":"WebApplication","name":"Selbstbehalt-Rechner","url":"https://unterhalt-rechner.com/selbstbehalt/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"areaServed":"DE"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Was ist der Unterschied zwischen notwendigem und angemessenem Selbstbehalt?","acceptedAnswer":{"@type":"Answer","text":"Der notwendige Selbstbehalt (1.200 € / 1.450 €) gilt gegenüber minderjährigen und privilegierten volljährigen Kindern (bis 21, im Haushalt eines Elternteils, in allgemeiner Schulausbildung). Der angemessene Selbstbehalt (1.750 €) gilt gegenüber sonstigen volljährigen Kindern."}},{"@type":"Question","name":"Was ist der Bedarfskontrollbetrag?","acceptedAnswer":{"@type":"Answer","text":"Nicht identisch mit dem Selbstbehalt — er soll eine ausgewogene Verteilung des Einkommens zwischen Pflichtigem und Kindern sicherstellen. Wird er unterschritten, kann eine niedrigere Einkommensgruppe angesetzt werden."}},{"@type":"Question","name":"Ändert sich der Selbstbehalt gegenüber dem Ehegatten?","acceptedAnswer":{"@type":"Answer","text":"Ja, gegenüber dem getrennt lebenden oder geschiedenen Ehegatten gilt ein eigener Selbstbehalt: 1.600 € (erwerbstätig) bzw. 1.475 € (nicht erwerbstätig), separat von dem gegenüber Kindern."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unterhaltsrechner","item":"https://unterhalt-rechner.com/"},{"@type":"ListItem","position":2,"name":"Selbstbehalt-Rechner","item":"https://unterhalt-rechner.com/selbstbehalt/"}]}]}</script>
+</head>
+<body>
+<header class="">
+  <span class="flag">⚖️ 🇩🇪</span>
+  <h1>Selbstbehalt-Rechner</h1>
+  <p class="tagline">Eigenbedarf 2026 gegenüber Kindern, Ehegatten und Eltern</p>
+  <nav class="site-nav"><a href="/" class="">Unterhaltsrechner</a><a href="/kindesunterhalt-rechner/" class="">Kindesunterhalt</a><a href="/ehegattenunterhalt-rechner/" class="">Ehegattenunterhalt</a><a href="/trennungsunterhalt-rechner/" class="">Trennungsunterhalt</a><a href="/unterhaltstabelle/" class="">Tabelle</a><a href="/selbstbehalt/" class="current">Selbstbehalt</a><a href="/wechselmodell/" class="">Wechselmodell</a><a href="/unterhalt-ab-18/" class="">Ab 18</a><a href="/jugendamt-berechnung/" class="">Jugendamt</a></nav>
+</header>
+
+<div class="tool-wrapper container">
+  <div class="tool-card no-tabs">
+    <div class="disclaimer-banner"><strong>Hinweis:</strong> Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Gegenüber wem?</label>
+        <div class="radio-group">
+          <div class="radio-opt"><input type="radio" name="s-typ" id="s-typ-kind" checked><label for="s-typ-kind">Minderjähriges Kind</label></div>
+          <div class="radio-opt"><input type="radio" name="s-typ" id="s-typ-erw-kind"><label for="s-typ-erw-kind">Sonstiges volljähriges Kind</label></div>
+          <div class="radio-opt"><input type="radio" name="s-typ" id="s-typ-ehe"><label for="s-typ-ehe">Ehegatte (getrennt/geschieden)</label></div>
+        </div>
+      </div>
+      <div class="form-group full">
+        <label>Erwerbsstatus</label>
+        <div class="radio-group">
+          <div class="radio-opt"><input type="radio" name="s-erwerb" id="s-erwerb-ja" checked><label for="s-erwerb-ja">Erwerbstätig</label></div>
+          <div class="radio-opt"><input type="radio" name="s-erwerb" id="s-erwerb-nein"><label for="s-erwerb-nein">Nicht erwerbstätig</label></div>
+        </div>
+      </div>
+    </div>
+    <button class="calc-btn" onclick="calcSelbstbehalt()">Selbstbehalt anzeigen</button>
+    <div class="result" id="result-s">
+      <div class="result-hero"><div class="r-label">Selbstbehalt 2026</div><div class="r-amount" id="s-out-betrag">–</div><div class="r-sub" id="s-out-sub"></div></div>
+      <div class="result-note">Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content container">
+  <h2 class="section-title">Selbstbehalt-Übersicht 2026</h2>
+  <div class="table-wrap"><table class="dt-table">
+    <tr><th>Gegenüber</th><th>Nicht erwerbstätig</th><th>Erwerbstätig</th></tr>
+    <tr><td>Minderjährige / privilegierte volljährige Kinder</td><td>1.200 €</td><td>1.450 €</td></tr>
+    <tr><td>Sonstige volljährige Kinder</td><td colspan="2">1.750 €</td></tr>
+    <tr><td>Getrennt lebender / geschiedener Ehegatte</td><td>1.475 €</td><td>1.600 €</td></tr>
+    <tr><td>Eltern (Elternunterhalt)</td><td colspan="2">2.650 € (zzgl. 70% des Mehreinkommens)</td></tr>
+  </table></div>
+  <p style="font-size:0.85rem;color:var(--muted)">Quelle: Düsseldorfer Tabelle, Anmerkungen VII &amp; B.II/D.I, Stand 01.01.2026.</p>
+
+  <h2 class="section-title">Häufige Fragen</h2>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Was ist der Unterschied zwischen notwendigem und angemessenem Selbstbehalt?</button><div class="faq-a"><p>Der notwendige Selbstbehalt (1.200 € / 1.450 €) gilt gegenüber minderjährigen und privilegierten volljährigen Kindern (bis 21, im Haushalt eines Elternteils, in allgemeiner Schulausbildung). Der angemessene Selbstbehalt (1.750 €) gilt gegenüber sonstigen volljährigen Kindern.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Was ist der Bedarfskontrollbetrag?</button><div class="faq-a"><p>Nicht identisch mit dem Selbstbehalt — er soll eine ausgewogene Verteilung des Einkommens zwischen Pflichtigem und Kindern sicherstellen. Wird er unterschritten, kann eine niedrigere Einkommensgruppe angesetzt werden.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Ändert sich der Selbstbehalt gegenüber dem Ehegatten?</button><div class="faq-a"><p>Ja, gegenüber dem getrennt lebenden oder geschiedenen Ehegatten gilt ein eigener Selbstbehalt: 1.600 € (erwerbstätig) bzw. 1.475 € (nicht erwerbstätig), separat von dem gegenüber Kindern.</p></div></div>
+</div>
+<div class="eeat-section">
+      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
+    </div>
+
+<footer>
+    <p>&copy; 2026 unterhalt-rechner.com — ein Angebot von Gesmine-Invest Limited</p>
+    <p style="margin-top:6px;font-size:0.85rem;">Alle Berechnungen sind unverbindlich und ersetzen keine Rechtsberatung.</p>
+    <div class="foot-links">
+      <a href="/about/">Über uns</a>·<a href="/impressum/">Impressum</a>·<a href="/datenschutz/">Datenschutz</a>
+    </div>
+  </footer>
+<script src="/assets/calc-engine.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+function calcSelbstbehalt() {
+  var typ = document.getElementById('s-typ-ehe').checked ? 'ehe' : (document.getElementById('s-typ-erw-kind').checked ? 'erwkind' : 'kind');
+  var erwerb = document.getElementById('s-erwerb-ja').checked;
+  var betrag, sub;
+  if (typ === 'kind') { betrag = erwerb ? 1450 : 1200; sub = 'Minderjähriges / privilegiertes volljähriges Kind'; }
+  else if (typ === 'erwkind') { betrag = 1750; sub = 'Sonstiges volljähriges Kind (unabhängig vom Erwerbsstatus)'; }
+  else { betrag = erwerb ? 1600 : 1475; sub = 'Getrennt lebender / geschiedener Ehegatte'; }
+  document.getElementById('s-out-betrag').textContent = euro(betrag);
+  document.getElementById('s-out-sub').textContent = sub;
+  showResult('result-s');
+}
+</script>
+</body>
+</html>

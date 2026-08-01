@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unterhaltsrechner Wechselmodell 2026 — Orientierung & Erklärung</title>
+<meta name="description" content="Unterhalt beim Wechselmodell: keine feste gesetzliche Formel, aber Orientierungswerte und Erklärung der gerichtlichen Praxis 2026.">
+<link rel="canonical" href="https://unterhalt-rechner.com/wechselmodell/">
+<meta property="og:title" content="Unterhaltsrechner Wechselmodell 2026 — Orientierung & Erklärung">
+<meta property="og:description" content="Unterhalt beim Wechselmodell: keine feste gesetzliche Formel, aber Orientierungswerte und Erklärung der gerichtlichen Praxis 2026.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://unterhalt-rechner.com/wechselmodell/">
+<meta property="og:locale" content="de_DE">
+<meta property="og:image" content="https://unterhalt-rechner.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"unterhalt-rechner.com","url":"https://unterhalt-rechner.com/","publisher":{"@type":"Organization","name":"Gesmine-Invest Limited"}},{"@type":"WebApplication","name":"Wechselmodell-Rechner","url":"https://unterhalt-rechner.com/wechselmodell/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"areaServed":"DE"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gibt es eine feste Formel für den Unterhalt beim Wechselmodell?","acceptedAnswer":{"@type":"Answer","text":"Nein. Die Düsseldorfer Tabelle gilt für das Residenzmodell. Beim echten Wechselmodell (annähernd hälftige Betreuung) gibt es keine gesetzlich fixierte Formel — der BGH verlangt eine Einzelfallbetrachtung, bei der Einkommensdifferenz und Mehrbedarf (z. B. doppelte Kinderzimmer) berücksichtigt werden."}},{"@type":"Question","name":"Ab wann gilt ein Betreuungsmodell als Wechselmodell?","acceptedAnswer":{"@type":"Answer","text":"In der Rechtsprechung wird meist von einem Wechselmodell gesprochen, wenn die Betreuungsanteile bei etwa 40-60% bis 50-50% liegen. Bei deutlich überwiegender Betreuung durch einen Elternteil gilt weiterhin das Residenzmodell und die reguläre Düsseldorfer Tabelle."}},{"@type":"Question","name":"Muss ich beim Wechselmodell trotzdem Kindesunterhalt zahlen?","acceptedAnswer":{"@type":"Answer","text":"Ja, wenn die Einkommen der Eltern unterschiedlich hoch sind. Der besser verdienende Elternteil gleicht die Differenz anteilig aus, da beide Elternteile gemeinsam für den Barbedarf des Kindes aufkommen."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Unterhaltsrechner","item":"https://unterhalt-rechner.com/"},{"@type":"ListItem","position":2,"name":"Wechselmodell-Rechner","item":"https://unterhalt-rechner.com/wechselmodell/"}]}]}</script>
+</head>
+<body>
+<header class="">
+  <span class="flag">⚖️ 🇩🇪</span>
+  <h1>Wechselmodell-Rechner</h1>
+  <p class="tagline">Unterhalt bei paritätischer Doppelresidenz — Orientierung, keine feste Formel</p>
+  <nav class="site-nav"><a href="/" class="">Unterhaltsrechner</a><a href="/kindesunterhalt-rechner/" class="">Kindesunterhalt</a><a href="/ehegattenunterhalt-rechner/" class="">Ehegattenunterhalt</a><a href="/trennungsunterhalt-rechner/" class="">Trennungsunterhalt</a><a href="/unterhaltstabelle/" class="">Tabelle</a><a href="/selbstbehalt/" class="">Selbstbehalt</a><a href="/wechselmodell/" class="current">Wechselmodell</a><a href="/unterhalt-ab-18/" class="">Ab 18</a><a href="/jugendamt-berechnung/" class="">Jugendamt</a></nav>
+</header>
+
+<div class="tool-wrapper container">
+  <div class="tool-card no-tabs">
+    <div class="disclaimer-banner"><strong>Wichtiger Hinweis:</strong> Für das Wechselmodell gibt es <strong>keine gesetzlich fixierte Berechnungsformel</strong>. Der folgende Rechner zeigt nur eine stark vereinfachte Orientierung (hälftige Einkommensdifferenz) — kein Ersatz für eine anwaltliche Berechnung Ihres Einzelfalls. Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Nettoeinkommen Elternteil A</label><input type="number" id="w-a" value="3000" min="0"></div>
+      <div class="form-group"><label>Nettoeinkommen Elternteil B</label><input type="number" id="w-b" value="2000" min="0"></div>
+    </div>
+    <button class="calc-btn" onclick="calcWechsel()">Orientierungswert berechnen</button>
+    <div class="result" id="result-w">
+      <div class="result-hero"><div class="r-label">Grober Ausgleichsbetrag / Monat</div><div class="r-amount" id="w-out-betrag">–</div><div class="r-sub">zu zahlen vom besser verdienenden Elternteil</div></div>
+      <div class="result-note warn">Dies ist eine stark vereinfachte Orientierung, keine rechtsverbindliche Berechnung. Beim Wechselmodell spielen zusätzlich Mehrbedarf (z. B. doppelte Ausstattung), Betreuungsanteile und weitere Faktoren eine Rolle — bitte lassen Sie sich anwaltlich beraten.</div>
+    </div>
+  </div>
+</div>
+
+<div class="content container">
+  <h2 class="section-title">Unterhalt beim Wechselmodell</h2>
+  <p>Beim echten Wechselmodell betreuen beide Elternteile das Kind annähernd zu gleichen Teilen. Da die Düsseldorfer Tabelle für das klassische Residenzmodell konzipiert ist, wenden Gerichte hier eine individuelle Einzelfallbetrachtung an: Beide Einkommen werden addiert, der Gesamtbedarf des Kindes (inkl. Mehrbedarf) ermittelt, und die Differenz zwischen den Elterneinkommen anteilig ausgeglichen.</p>
+  <p>Es gibt bewusst <strong>keine feste gesetzliche Formel</strong> — jede Berechnung, die eine exakte Formel vorgibt, wäre irreführend. Unser vereinfachter Rechner oben zeigt nur eine grobe erste Orientierung.</p>
+
+  <h2 class="section-title">Häufige Fragen</h2>
+  <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Gibt es eine feste Formel für den Unterhalt beim Wechselmodell?</button><div class="faq-a"><p>Nein. Die Düsseldorfer Tabelle gilt für das Residenzmodell. Beim echten Wechselmodell (annähernd hälftige Betreuung) gibt es keine gesetzlich fixierte Formel — der BGH verlangt eine Einzelfallbetrachtung, bei der Einkommensdifferenz und Mehrbedarf (z. B. doppelte Kinderzimmer) berücksichtigt werden.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Ab wann gilt ein Betreuungsmodell als Wechselmodell?</button><div class="faq-a"><p>In der Rechtsprechung wird meist von einem Wechselmodell gesprochen, wenn die Betreuungsanteile bei etwa 40-60% bis 50-50% liegen. Bei deutlich überwiegender Betreuung durch einen Elternteil gilt weiterhin das Residenzmodell und die reguläre Düsseldorfer Tabelle.</p></div></div>
+<div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Muss ich beim Wechselmodell trotzdem Kindesunterhalt zahlen?</button><div class="faq-a"><p>Ja, wenn die Einkommen der Eltern unterschiedlich hoch sind. Der besser verdienende Elternteil gleicht die Differenz anteilig aus, da beide Elternteile gemeinsam für den Barbedarf des Kindes aufkommen.</p></div></div>
+</div>
+<div class="eeat-section">
+      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
+    </div>
+
+<footer>
+    <p>&copy; 2026 unterhalt-rechner.com — ein Angebot von Gesmine-Invest Limited</p>
+    <p style="margin-top:6px;font-size:0.85rem;">Alle Berechnungen sind unverbindlich und ersetzen keine Rechtsberatung.</p>
+    <div class="foot-links">
+      <a href="/about/">Über uns</a>·<a href="/impressum/">Impressum</a>·<a href="/datenschutz/">Datenschutz</a>
+    </div>
+  </footer>
+<script src="/assets/calc-engine.js"></script>
+<script src="/assets/site.js"></script>
+<script>
+function calcWechsel() {
+  var a = parseFloat(document.getElementById('w-a').value) || 0;
+  var b = parseFloat(document.getElementById('w-b').value) || 0;
+  var ausgleich = berechneWechselmodellAusgleich(a, b);
+  document.getElementById('w-out-betrag').textContent = euro(ausgleich);
+  showResult('result-w');
+}
+</script>
+</body>
+</html>
