@@ -89,25 +89,40 @@ writePage({
 // 4. Unterhaltstabelle (volle Tabelle, kein Formular)
 // ---------------------------------------------------------------------------
 var DT = require('./assets/dt-data.js');
+var DT_ARCHIV = {
+  2026: { data: DT.DT_TABELLE, kontrolleZeile1: '1.200 / 1.450', quelle: 'https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf' },
+  2025: Object.assign({ quelle: 'https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2025/DT_2025_Neufassung-m-geaenderter-Fussnote.pdf' }, (function () { var d = require('./assets/dt-data-2025.js'); return { data: d.DT_TABELLE, kontrolleZeile1: d.kontrolleZeile1 }; })()),
+  2024: Object.assign({ quelle: 'https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2024/2023_12_11_Duesseldorfer_Tabelle_-2024.pdf' }, (function () { var d = require('./assets/dt-data-2024.js'); return { data: d.DT_TABELLE, kontrolleZeile1: d.kontrolleZeile1 }; })()),
+  2023: Object.assign({ quelle: 'https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2023/Duesseldorfer-Tabelle-2023.pdf' }, (function () { var d = require('./assets/dt-data-2023.js'); return { data: d.DT_TABELLE, kontrolleZeile1: d.kontrolleZeile1 }; })()),
+};
 var tabFaq = [
-  { q: 'Wie oft ändert sich die Düsseldorfer Tabelle?', a: 'In der Regel jährlich zum 1. Januar, gelegentlich auch unterjährig bei gesetzlichen Änderungen des Mindestunterhalts. Die aktuelle Fassung gilt seit 01.01.2026.' },
+  { q: 'Wie oft ändert sich die Düsseldorfer Tabelle?', a: 'In der Regel jährlich zum 1. Januar, gelegentlich auch unterjährig bei gesetzlichen Änderungen des Mindestunterhalts. Die aktuelle Fassung gilt seit 01.01.2026 — die Vorjahre 2023-2025 finden Sie im Archiv unten.' },
   { q: 'Was ist die Düsseldorfer Tabelle Tabelle Zahlbeträge?', a: 'Ein Anhang zur Haupttabelle, der die Beträge nach Abzug des Kindergeldanteils zeigt — also die tatsächlich zu zahlenden Beträge, nicht nur den theoretischen Bedarf.' },
   { q: 'Was ist der Bedarfskontrollbetrag?', a: 'Ein Mindestbetrag, der dem Pflichtigen nach Zahlung des Unterhalts verbleiben soll, um eine ausgewogene Verteilung zwischen ihm und den Kindern sicherzustellen. Wird er unterschritten, kann der Tabellenbetrag der nächst niedrigeren Einkommensgruppe angesetzt werden.' },
+  { q: 'Welche frühere Tabelle gilt für einen Unterhaltsanspruch aus 2024?', a: 'Für die Berechnung rückwirkender oder vergangener Ansprüche gilt die zum jeweiligen Zeitpunkt gültige Fassung — nutzen Sie dafür die Archiv-Tabelle des betreffenden Jahres unten, nicht die aktuelle 2026er-Tabelle.' },
 ];
-function tableHtml() {
-  var rows = DT.DT_TABELLE.map(function (r, i) {
-    return '<tr><td>' + (i + 1) + '</td><td>' + (i === 0 ? 'bis' : (DT.DT_TABELLE[i - 1].bis + 1).toLocaleString('de-DE') + ' –') + ' ' + r.bis.toLocaleString('de-DE') + ' €</td><td>' + r.a1 + ' €</td><td>' + r.a2 + ' €</td><td>' + r.a3 + ' €</td><td>' + r.a4 + ' €</td><td>' + r.pct + '%</td><td>' + (r.kontrolle ? r.kontrolle.toLocaleString('de-DE') + ' €' : '1.200 / 1.450 €') + '</td></tr>';
+function tableHtml(tabelle, kontrolleZeile1) {
+  var rows = tabelle.map(function (r, i) {
+    return '<tr><td>' + (i + 1) + '</td><td>' + (i === 0 ? 'bis' : (tabelle[i - 1].bis + 1).toLocaleString('de-DE') + ' –') + ' ' + r.bis.toLocaleString('de-DE') + ' €</td><td>' + r.a1 + ' €</td><td>' + r.a2 + ' €</td><td>' + r.a3 + ' €</td><td>' + r.a4 + ' €</td><td>' + r.pct + '%</td><td>' + (r.kontrolle ? r.kontrolle.toLocaleString('de-DE') + ' €' : kontrolleZeile1 + ' €') + '</td></tr>';
   }).join('');
   return '<div class="table-wrap"><table class="dt-table"><tr><th>Gr.</th><th>Nettoeinkommen</th><th>0-5 J.</th><th>6-11 J.</th><th>12-17 J.</th><th>ab 18 J.</th><th>%</th><th>Kontrollbetrag</th></tr>' + rows + '</table></div>';
 }
-var tabBody = '\n<div class="container-wide">\n  <div style="margin-top:-40px;position:relative;z-index:10;background:white;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.1);border:1px solid var(--border);padding:24px;">\n    ' + DISCLAIMER_HTML + '\n    <h2 style="font-size:1.1rem;margin-bottom:10px;">Düsseldorfer Tabelle — Stand 01.01.2026 (Bedarfssätze)</h2>\n    ' + tableHtml() + '\n    <p style="font-size:0.85rem;color:var(--muted)">Quelle: <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">OLG Düsseldorf, PDF, Stand 01.01.2026</a>. Werte wörtlich übernommen.</p>\n  </div>\n</div>\n\n<div class="content container">\n  <h2 class="section-title">Was zeigt die Tabelle?</h2>\n  <p>Die Düsseldorfer Tabelle ordnet dem bereinigten monatlichen Nettoeinkommen des barunterhaltspflichtigen Elternteils eine von 15 Einkommensgruppen zu. Für jede Gruppe gibt es vier Bedarfssätze, gestaffelt nach dem Alter des Kindes. Die angegebenen Beträge sind Bedarfssätze (Tabellenbeträge) — der tatsächliche Zahlbetrag ergibt sich erst nach Abzug des anteiligen Kindergelds. Nutzen Sie dafür unseren <a href="/kindesunterhalt-rechner/">Kindesunterhalt-Rechner</a>.</p>\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(tabFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+var tabYears = [2026, 2025, 2024, 2023];
+var tabYearTabsHtml = tabYears.map(function (y, i) {
+  return '<button class="tab-btn' + (i === 0 ? ' active' : '') + '" onclick="switchTab(\'tab-year-' + y + '\', this)">' + y + '</button>';
+}).join('');
+var tabYearPanelsHtml = tabYears.map(function (y, i) {
+  var t = DT_ARCHIV[y];
+  return '<div id="tab-year-' + y + '" class="tab-panel' + (i === 0 ? ' active' : '') + '">' + tableHtml(t.data, t.kontrolleZeile1) + '<p style="font-size:0.85rem;color:var(--muted);margin-top:10px">Quelle: <a href="' + t.quelle + '" target="_blank" rel="noopener">OLG Düsseldorf, PDF, Stand 01.01.' + y + '</a>. Werte wörtlich übernommen.</p></div>';
+}).join('');
+var tabBody = '\n<div class="container-wide">\n  <div style="margin-top:-40px;position:relative;z-index:10;background:white;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.1);border:1px solid var(--border);padding:24px;">\n    ' + DISCLAIMER_HTML + '\n    <h2 style="font-size:1.1rem;margin-bottom:10px;">Düsseldorfer Tabelle — Archiv 2023-2026 (Bedarfssätze)</h2>\n    <div class="tab-nav" style="margin-bottom:16px;border-radius:8px;">' + tabYearTabsHtml + '</div>\n    ' + tabYearPanelsHtml + '\n  </div>\n</div>\n\n<div class="content container">\n  <h2 class="section-title">Was zeigt die Tabelle?</h2>\n  <p>Die Düsseldorfer Tabelle ordnet dem bereinigten monatlichen Nettoeinkommen des barunterhaltspflichtigen Elternteils eine von 15 Einkommensgruppen zu. Für jede Gruppe gibt es vier Bedarfssätze, gestaffelt nach dem Alter des Kindes. Die angegebenen Beträge sind Bedarfssätze (Tabellenbeträge) — der tatsächliche Zahlbetrag ergibt sich erst nach Abzug des anteiligen Kindergelds. Nutzen Sie dafür unseren <a href="/kindesunterhalt-rechner/">Kindesunterhalt-Rechner</a> (aktuelle Werte 2026).</p>\n  <p>Oben finden Sie zusätzlich das Archiv der Vorjahre 2023-2025 — nützlich für rückwirkende Ansprüche oder zum Vergleich der Entwicklung der Bedarfssätze über die Jahre.</p>\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(tabFaq) + '\n</div>\n' + eeatSection(true) + '\n';
 
 writePage({
   href: '/unterhaltstabelle/',
-  title: 'Düsseldorfer Tabelle 2026 — vollständige Unterhaltstabelle',
-  metaDescription: 'Die vollständige Düsseldorfer Tabelle 2026 mit allen 15 Einkommensgruppen, 4 Altersstufen und Bedarfskontrollbeträgen. Amtliche Werte, Stand 01.01.2026.',
+  title: 'Düsseldorfer Tabelle 2026 (+ Archiv 2023-2025) — vollständige Unterhaltstabelle',
+  metaDescription: 'Die vollständige Düsseldorfer Tabelle 2026 mit allen 15 Einkommensgruppen, 4 Altersstufen und Bedarfskontrollbeträgen — plus Archiv 2023-2025. Amtliche Werte.',
   h1: 'Düsseldorfer Tabelle 2026',
-  tagline: 'Alle 15 Einkommensgruppen im Überblick — amtlicher Stand 01.01.2026',
+  tagline: 'Alle 15 Einkommensgruppen im Überblick — plus Archiv der Vorjahre 2023-2025',
   hasCalc: false,
   webApp: false,
   faq: tabFaq,
@@ -219,8 +234,9 @@ var lassenFaq = [
   { q: 'Wann sollte ich den Unterhalt anwaltlich berechnen lassen?', a: 'Bei komplexen Einkommensverhältnissen (Selbstständigkeit, mehrere Einkunftsarten), Mangelfällen, Wechselmodell, Auslandsbezug oder wenn der andere Elternteil die Zahlung verweigert. Unser Rechner ist eine kostenlose Orientierung, ersetzt aber keine Einzelfallprüfung.' },
   { q: 'Was kostet eine anwaltliche Unterhaltsberechnung?', a: 'Die Kosten hängen vom Gegenstandswert (Höhe des Jahresunterhalts) ab. Viele Anwälte bieten eine kostenlose oder günstige Erstberatung an. Alternativ ist die Beistandschaft beim Jugendamt für Kindesunterhalt komplett kostenlos.' },
   { q: 'Kann ich den Unterhalt neu berechnen lassen, wenn sich mein Einkommen ändert?', a: 'Ja, bei einer wesentlichen Einkommensänderung (meist ab 10%) auf beiden Seiten kann eine Abänderung verlangt werden — außergerichtlich per Neuberechnung oder gerichtlich per Abänderungsklage.' },
+  { q: 'Wie finde ich einen Fachanwalt für Familienrecht?', a: '"Fachanwalt für Familienrecht" ist ein geschützter Titel, der besondere Theorie- und Praxiserfahrung voraussetzt. Über Anwaltsvermittlungen (z. B. anwalt.de) oder die örtliche Rechtsanwaltskammer lässt sich gezielt nach diesem Titel filtern. Eine kostenlose oder pauschale Erstberatung hilft, Erfolgsaussichten und Kosten vorab einzuschätzen.' },
 ];
-var lassenBody = '\n<div class="content container" style="padding-top:52px">\n  <h2 class="section-title">Unterhalt verbindlich berechnen lassen</h2>\n  <p>Unsere Rechner bieten eine kostenlose, unverbindliche Orientierung nach der Düsseldorfer Tabelle. Für eine rechtsverbindliche Berechnung — insbesondere bei komplexeren Fällen — empfehlen wir die Beistandschaft beim Jugendamt (kostenlos, nur für Kindesunterhalt) oder eine Fachanwältin/einen Fachanwalt für Familienrecht.</p>\n\n  <div class="cta-box">\n    <h2>Kostenlose Erstberatung finden</h2>\n    <p>Über unabhängige Anwaltsvermittlungen können Sie eine erste Einschätzung zu Ihrem Fall erhalten, oft kostenlos oder zu Festpreisen.</p>\n    <ul>\n      <li>Fachanwalt für Familienrecht in Ihrer Nähe finden</li>\n      <li>Erste Einschätzung zu Ihrem Unterhaltsanspruch</li>\n      <li>Unterstützung bei Durchsetzung oder Abwehr von Ansprüchen</li>\n    </ul>\n    <a class="cta-btn" href="https://www.anwalt.de/rechtsgebiete/familienrecht.php" target="_blank" rel="noopener nofollow">Anwalt für Familienrecht finden →</a>\n  </div>\n\n  <h2 class="section-title">Kostenlose Alternative: das Jugendamt</h2>\n  <p>Für den Kindesunterhalt bietet jedes Jugendamt eine kostenlose Beistandschaft an, die den Unterhalt berechnet, beurkundet und bei der Durchsetzung hilft. Mehr dazu auf unserer Seite <a href="/jugendamt-berechnung/">Jugendamt &amp; Unterhalt</a>.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(lassenFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+var lassenBody = '\n<div class="content container" style="padding-top:52px">\n  <h2 class="section-title">Unterhalt verbindlich berechnen lassen</h2>\n  <p>Unsere Rechner bieten eine kostenlose, unverbindliche Orientierung nach der Düsseldorfer Tabelle. Für eine rechtsverbindliche Berechnung — insbesondere bei komplexeren Fällen — empfehlen wir die Beistandschaft beim Jugendamt (kostenlos, nur für Kindesunterhalt) oder eine Fachanwältin/einen Fachanwalt für Familienrecht.</p>\n\n  <h2 class="section-title">Wie finde ich den richtigen Fachanwalt für Familienrecht?</h2>\n  <ul>\n    <li><strong>Fachanwaltstitel prüfen:</strong> "Fachanwalt für Familienrecht" ist ein geschützter Titel — nur wer die Zusatzqualifikation nach der Fachanwaltsordnung nachgewiesen hat, darf ihn führen. Ein normaler Rechtsanwalt darf Familienrecht auch bearbeiten, hat aber keinen Nachweis spezialisierter Erfahrung.</li>\n    <li><strong>Erstberatung nutzen:</strong> Viele Kanzleien bieten eine kostenlose oder pauschal abgerechnete Erstberatung (oft 190-250 €) an, um Erfolgsaussichten und Kosten vorab einzuschätzen.</li>\n    <li><strong>Unterlagen vorbereiten:</strong> Einkommensnachweise (letzte 12 Monate), ggf. Steuerbescheid, Angaben zu Kindern/Ehegatten und bereits erhaltenem Unterhalt beschleunigen die erste Einschätzung erheblich.</li>\n    <li><strong>Kosten vorab klären:</strong> Rechtsanwaltskosten richten sich nach dem Gegenstandswert (Jahresunterhalt × 12). Bei Rechtsschutzversicherung oder geringem Einkommen kann Verfahrenskostenhilfe/Beratungshilfe in Frage kommen.</li>\n    <li><strong>Regionale Zuständigkeit:</strong> Für die gerichtliche Durchsetzung ist meist das Familiengericht am Wohnort des Kindes zuständig — ein ortsansässiger Anwalt ist nicht zwingend nötig, kann aber praktisch sein.</li>\n  </ul>\n\n  <div class="cta-box">\n    <h2>Kostenlose Erstberatung finden</h2>\n    <p>Über unabhängige Anwaltsvermittlungen können Sie eine erste Einschätzung zu Ihrem Fall erhalten, oft kostenlos oder zu Festpreisen.</p>\n    <ul>\n      <li>Fachanwalt für Familienrecht in Ihrer Nähe finden</li>\n      <li>Erste Einschätzung zu Ihrem Unterhaltsanspruch</li>\n      <li>Unterstützung bei Durchsetzung oder Abwehr von Ansprüchen</li>\n    </ul>\n    <a class="cta-btn" href="https://www.anwalt.de/rechtsgebiete/familienrecht.php" target="_blank" rel="noopener nofollow">Anwalt für Familienrecht finden →</a>\n  </div>\n\n  <h2 class="section-title">Kostenlose Alternative: das Jugendamt</h2>\n  <p>Für den Kindesunterhalt bietet jedes Jugendamt eine kostenlose Beistandschaft an, die den Unterhalt berechnet, beurkundet und bei der Durchsetzung hilft. Mehr dazu auf unserer Seite <a href="/jugendamt-berechnung/">Jugendamt &amp; Unterhalt</a>.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(lassenFaq) + '\n</div>\n' + eeatSection(true) + '\n';
 
 writePage({
   href: '/unterhalt-berechnen-lassen/',
@@ -232,6 +248,179 @@ writePage({
   webApp: false,
   faq: lassenFaq,
   body: lassenBody,
+});
+
+// ---------------------------------------------------------------------------
+// 10. Unterhaltsvorschuss-Rechner
+// ---------------------------------------------------------------------------
+var uvFaq = [
+  { q: 'Was ist der Unterhaltsvorschuss?', a: 'Eine staatliche Ersatzleistung für Kinder Alleinerziehender, wenn der barunterhaltspflichtige Elternteil keinen oder nicht regelmäßig Unterhalt zahlt. Beantragt wird er beim Jugendamt (Unterhaltsvorschussstelle).' },
+  { q: 'Wie hoch ist der Unterhaltsvorschuss 2026?', a: 'Bis zu 227 € (0-5 Jahre), 299 € (6-11 Jahre) und 394 € (12-17 Jahre) monatlich — jeweils der Mindestunterhalt der Düsseldorfer Tabelle Stufe 1 abzüglich des vollen Kindergelds.' },
+  { q: 'Gibt es eine zeitliche Höchstgrenze?', a: 'Nein. Seit der UVG-Reform 2020 gibt es keine Höchstbezugsdauer mehr — der Anspruch besteht grundsätzlich bis zur Volljährigkeit (18 Jahre).' },
+  { q: 'Gelten für 12-17-Jährige besondere Bedingungen?', a: 'Ja: Der Anspruch besteht, wenn das Kind nicht auf Bürgergeld (SGB II) angewiesen ist, oder wenn der alleinerziehende Elternteil trotz Bürgergeld-Bezug mindestens 600 € brutto monatlich verdient.' },
+  { q: 'Wird der Unterhaltsvorschuss gekürzt, wenn ich schon etwas Unterhalt bekomme?', a: 'Ja, tatsächlich gezahlter Kindesunterhalt vom anderen Elternteil wird vom Unterhaltsvorschuss abgezogen — der Staat zahlt nur die Differenz zum Höchstbetrag.' },
+  { q: 'Muss ich den Unterhaltsvorschuss zurückzahlen?', a: 'Nein, nicht Sie als betreuender Elternteil. Der Staat versucht jedoch, den gezahlten Betrag beim unterhaltspflichtigen Elternteil zurückzufordern (Legalzession nach § 7 UVG).' },
+];
+var uvBody = '\n<div class="tool-wrapper container">\n  <div class="tool-card no-tabs">\n    ' + DISCLAIMER_HTML + '\n    <div class="form-grid">\n      <div class="form-group"><label>Alter des Kindes</label><input type="number" id="uv-alter" value="8" min="0" max="17"></div>\n      <div class="form-group"><label>Bereits gezahlter Unterhalt <span>vom anderen Elternteil, 0 falls keiner</span></label><input type="number" id="uv-gezahlt" value="0" min="0"></div>\n    </div>\n    <button class="calc-btn" onclick="calcUVG()">Unterhaltsvorschuss berechnen</button>\n    <div class="result" id="result-uv">\n      <div class="result-hero"><div class="r-label">Möglicher Unterhaltsvorschuss / Monat</div><div class="r-amount" id="uv-out-betrag">–</div><div class="r-sub" id="uv-out-sub"></div></div>\n      <div class="result-note" id="uv-out-note"></div>\n    </div>\n  </div>\n</div>\n\n<div class="content container">\n  <h2 class="section-title">Unterhaltsvorschuss — staatliche Ersatzleistung</h2>\n  <p>Zahlt der barunterhaltspflichtige Elternteil keinen oder nicht regelmäßig Kindesunterhalt, kann der betreuende Elternteil beim Jugendamt Unterhaltsvorschuss beantragen. Die Höhe entspricht dem Mindestunterhalt der Düsseldorfer Tabelle (Einkommensgruppe 1) abzüglich des vollen Kindergelds.</p>\n  <div class="index-formula">Unterhaltsvorschuss = Mindestunterhalt (Stufe 1, je nach Alter) − volles Kindergeld (259 €)<br>abzüglich bereits gezahltem Unterhalt des anderen Elternteils</div>\n  <p>Für Kinder ab 12 Jahren gilt eine zusätzliche Bedingung: Der Anspruch besteht nur, wenn das Kind nicht überwiegend auf Bürgergeld angewiesen ist, oder der alleinerziehende Elternteil trotz Bürgergeld-Bezug mindestens 600 € brutto monatlich verdient. Seit der Reform 2020 gibt es keine zeitliche Höchstbezugsdauer mehr — der Anspruch gilt grundsätzlich bis zur Volljährigkeit.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(uvFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+var uvScript = "<script>\nfunction calcUVG() {\n  var alter = parseInt(document.getElementById('uv-alter').value) || 0;\n  var gezahlt = parseFloat(document.getElementById('uv-gezahlt').value) || 0;\n  var res = berechneUnterhaltsvorschuss(alter, gezahlt);\n  var note = document.getElementById('uv-out-note');\n  if (!res.anspruchsberechtigt) {\n    document.getElementById('uv-out-betrag').textContent = '0 €';\n    document.getElementById('uv-out-sub').textContent = '';\n    note.textContent = res.grund;\n    note.classList.add('warn');\n    showResult('result-uv');\n    return;\n  }\n  document.getElementById('uv-out-betrag').textContent = euro(res.betrag);\n  document.getElementById('uv-out-sub').textContent = 'Höchstbetrag: ' + euro(res.maxBetrag);\n  if (res.bedingung1217) {\n    note.textContent = 'Für 12-17-Jährige gilt eine zusätzliche Bedingung: kein bzw. nur ergänzender Bürgergeld-Bezug (siehe FAQ). ' + \"" + RDG.replace(/'/g, "\\'") + "\";\n    note.classList.add('warn');\n  } else {\n    note.textContent = \"" + RDG.replace(/'/g, "\\'") + "\";\n    note.classList.remove('warn');\n  }\n  showResult('result-uv');\n}\n</script>";
+
+writePage({
+  href: '/unterhaltsvorschuss-rechner/',
+  title: 'Unterhaltsvorschuss berechnen 2026 — Rechner & Bedingungen',
+  metaDescription: 'Unterhaltsvorschuss 2026 berechnen: bis zu 394 € monatlich für Kinder Alleinerziehender. Bedingungen, Höhe und Beantragung beim Jugendamt erklärt.',
+  h1: 'Unterhaltsvorschuss-Rechner',
+  tagline: 'Staatliche Ersatzleistung, wenn der andere Elternteil nicht zahlt — 2026',
+  hasCalc: true,
+  webApp: true,
+  faq: uvFaq,
+  body: uvBody,
+  extraScript: uvScript,
+});
+
+// ---------------------------------------------------------------------------
+// 11. Elternunterhalt-Rechner
+// ---------------------------------------------------------------------------
+var elternDisclaimer = '<div class="disclaimer-banner"><strong>Besonders wichtiger Hinweis:</strong> Anders als beim Kindes- oder Ehegattenunterhalt gibt es <strong>keine feste gesetzliche Berechnungsformel</strong> für den Elternunterhalt. Das Ergebnis unten zeigt nur den rechnerischen Rahmen (Einkommen minus Selbstbehalt gemäß Anmerkung D.I der Düsseldorfer Tabelle) — die tatsächliche Zahlungspflicht hängt zusätzlich von Vermögen, Schonvermögen, weiteren Unterhaltspflichten und der Einzelfallprüfung durch das Sozialamt ab. Diese Schätzung ist besonders grob. ' + RDG + '</div>';
+var elternFaq = [
+  { q: 'Ab wann muss ich Elternunterhalt zahlen?', a: 'Erst wenn Ihr eigenes Bruttojahreseinkommen 100.000 € übersteigt (Angehörigen-Entlastungsgesetz seit 2020). Diese Grenze gilt pro Kind einzeln, auch bei mehreren pflegebedürftigen Elternteilen. Etwa 96-97% der Bevölkerung liegen darunter und sind damit von vornherein befreit.' },
+  { q: 'Wie wird der Elternunterhalt berechnet, wenn ich über 100.000 € verdiene?', a: 'Es gibt keine feste Quote wie beim Ehegattenunterhalt. Anmerkung D.I der Düsseldorfer Tabelle definiert den Selbstbehalt gegenüber Eltern: mindestens 2.650 €/Monat zzgl. 70% des darüber hinausgehenden Nettoeinkommens. Der rechnerisch maximale Unterhalt ergibt sich aus Einkommen minus diesem Selbstbehalt (= 30% des Mehreinkommens) — aber Vermögen, Schonvermögen und weitere Faktoren fließen zusätzlich ein.' },
+  { q: 'Was ist Schonvermögen beim Elternunterhalt?', a: 'Vermögen, das nicht für den Elternunterhalt eingesetzt werden muss — z. B. angemessene Altersvorsorge, selbstgenutztes Wohneigentum, ein angemessener Notgroschen. Die genaue Höhe ist einzelfallabhängig und nicht pauschal berechenbar.' },
+  { q: 'Darf das Sozialamt einfach alle Kinder anschreiben?', a: 'Nein. Seit dem Angehörigen-Entlastungsgesetz darf das Sozialamt Kinder nur kontaktieren, wenn konkrete Anhaltspunkte für ein Bruttojahreseinkommen über 100.000 € vorliegen — ein pauschales Anschreiben ist unzulässig.' },
+];
+var elternBody = '\n<div class="tool-wrapper container">\n  <div class="tool-card no-tabs">\n    ' + elternDisclaimer + '\n    <div class="form-grid">\n      <div class="form-group"><label>Bruttojahreseinkommen</label><input type="number" id="el-brutto" value="60000" min="0"></div>\n      <div class="form-group"><label>Bereinigtes Nettoeinkommen <span>pro Monat</span></label><input type="number" id="el-netto" value="2800" min="0"></div>\n    </div>\n    <button class="calc-btn" onclick="calcEltern()">Rechnerischen Rahmen anzeigen</button>\n    <div class="result" id="result-el">\n      <div class="result-hero"><div class="r-label">Rechnerischer Rahmen / Monat</div><div class="r-amount" id="el-out-betrag">–</div><div class="r-sub" id="el-out-sub"></div></div>\n      <div class="result-note warn" id="el-out-note"></div>\n    </div>\n  </div>\n</div>\n\n<div class="content container">\n  <h2 class="section-title">Elternunterhalt — wann und wie viel?</h2>\n  <p>Pflegebedürftige Eltern können gegenüber ihren erwachsenen Kindern einen Unterhaltsanspruch haben (§ 1601 BGB), wenn die eigene Rente und Pflegeversicherung die Pflegekosten nicht decken und das Sozialamt in Vorleistung tritt. Seit dem Angehörigen-Entlastungsgesetz (2020) sind Kinder mit einem Bruttojahreseinkommen bis 100.000 € vollständig befreit.</p>\n  <div class="index-formula">Freigrenze: keine Zahlungspflicht bis 100.000 € Bruttojahreseinkommen<br>Darüber (rechnerischer Rahmen): Selbstbehalt = 2.650 € + 70% × (Nettoeinkommen − 2.650 €)<br>Unterhalt (Obergrenze) = Nettoeinkommen − Selbstbehalt = 30% × Mehreinkommen</div>\n  <p><strong>Wichtig:</strong> Anders als beim Kindes- oder Ehegattenunterhalt ist dies keine feste Zahlungsformel, sondern nur der rechnerische Höchstrahmen laut Anmerkung D.I der Düsseldorfer Tabelle. Vermögen, Schonvermögen, weitere Unterhaltspflichten und regionale Rechtsprechung beeinflussen das tatsächliche Ergebnis erheblich — eine anwaltliche oder sozialrechtliche Beratung ist hier besonders empfehlenswert.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(elternFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+var elternScript = "<script>\nfunction calcEltern() {\n  var brutto = parseFloat(document.getElementById('el-brutto').value) || 0;\n  var netto = parseFloat(document.getElementById('el-netto').value) || 0;\n  var res = berechneElternunterhalt(brutto, netto);\n  var note = document.getElementById('el-out-note');\n  if (!res.pflichtig) {\n    document.getElementById('el-out-betrag').textContent = '0 €';\n    document.getElementById('el-out-sub').textContent = 'Bruttojahreseinkommen unter 100.000 €';\n    note.textContent = 'Sie sind laut Angehörigen-Entlastungsgesetz vollständig von der Zahlungspflicht befreit, da Ihr Bruttojahreseinkommen die 100.000-€-Grenze nicht übersteigt.';\n  } else {\n    document.getElementById('el-out-betrag').textContent = euro(res.unterhaltMax);\n    document.getElementById('el-out-sub').textContent = 'Selbstbehalt: ' + euro(res.selbstbehalt);\n    note.textContent = 'Dies ist nur der rechnerische Höchstrahmen, keine feste Zahlungspflicht. " + RDG.replace(/'/g, "\\'") + "';\n  }\n  showResult('result-el');\n}\n</script>";
+
+writePage({
+  href: '/elternunterhalt-rechner/',
+  title: 'Elternunterhalt berechnen 2026 — 100.000-€-Grenze & Selbstbehalt',
+  metaDescription: 'Elternunterhalt 2026: ab wann Kinder zahlen müssen (100.000-€-Grenze), Selbstbehalt und rechnerischer Rahmen nach Düsseldorfer Tabelle Anmerkung D.',
+  h1: 'Elternunterhalt-Rechner',
+  tagline: '100.000-€-Freigrenze und rechnerischer Rahmen — keine feste Formel',
+  hasCalc: true,
+  webApp: true,
+  faq: elternFaq,
+  body: elternBody,
+  extraScript: elternScript,
+});
+
+// ---------------------------------------------------------------------------
+// 12. Mangelfallberechnung
+// ---------------------------------------------------------------------------
+var mfFaq = [
+  { q: 'Was ist ein Mangelfall?', a: 'Reicht das Einkommen des Unterhaltspflichtigen nach Abzug seines Selbstbehalts nicht aus, um die Zahlbeträge aller gleichrangigen Kinder (§ 1609 Nr. 1 BGB) vollständig zu decken, spricht man von einem Mangelfall (Anmerkung C der Düsseldorfer Tabelle).' },
+  { q: 'Wie wird die Verteilungsmasse berechnet?', a: 'Verteilungsmasse = bereinigtes Nettoeinkommen des Pflichtigen minus seinem notwendigen Selbstbehalt (1.450 € erwerbstätig / 1.200 € nicht erwerbstätig).' },
+  { q: 'Wie wird die Verteilungsmasse auf mehrere Kinder aufgeteilt?', a: 'Proportional zu den Einsatzbeträgen jedes Kindes (= normaler Zahlbetrag nach Alter und Einkommensgruppe). Jedes Kind erhält: Einsatzbetrag × Verteilungsmasse ÷ Summe aller Einsatzbeträge.' },
+  { q: 'Bekommen alle Kinder gleich viel im Mangelfall?', a: 'Nein — ältere Kinder haben einen höheren Einsatzbetrag (höherer Bedarfssatz laut Tabelle) und erhalten daher anteilig mehr als jüngere Geschwister, auch im Mangelfall.' },
+];
+var mfBody = '\n<div class="tool-wrapper container">\n  <div class="tool-card no-tabs">\n    ' + DISCLAIMER_HTML + '\n    <div class="form-grid">\n      <div class="form-group"><label>Bereinigtes Nettoeinkommen (Pflichtiger)</label><input type="number" id="mf-einkommen" value="1750" min="0"></div>\n      <div class="form-group"><label>Anzahl gleichrangiger Kinder</label><select id="mf-anzahl" onchange="renderMfAgeInputs()"><option value="1">1 Kind</option><option value="2">2 Kinder</option><option value="3" selected>3 Kinder</option><option value="4">4 Kinder</option></select></div>\n      <div class="form-group full">\n        <label>Pflichtiger ist</label>\n        <div class="radio-group">\n          <div class="radio-opt"><input type="radio" name="mf-erwerb" id="mf-erwerb-ja" checked><label for="mf-erwerb-ja">Erwerbstätig (1.450 € Selbstbehalt)</label></div>\n          <div class="radio-opt"><input type="radio" name="mf-erwerb" id="mf-erwerb-nein"><label for="mf-erwerb-nein">Nicht erwerbstätig (1.200 € Selbstbehalt)</label></div>\n        </div>\n      </div>\n      <div class="form-group full" id="mf-ages"></div>\n    </div>\n    <button class="calc-btn" onclick="calcMangelfall()">Berechnen</button>\n    <div class="result" id="result-mf">\n      <div class="result-hero"><div class="r-label">Status</div><div class="r-amount" id="mf-out-status" style="font-size:1.4rem">–</div><div class="r-sub" id="mf-out-sub"></div></div>\n      <div id="mf-per-child"></div>\n      <div class="result-note" id="mf-out-note"></div>\n    </div>\n  </div>\n</div>\n\n<div class="content container">\n  <h2 class="section-title">Mangelfallberechnung — wenn das Einkommen nicht reicht</h2>\n  <p>Reicht das Einkommen des Pflichtigen nach Abzug seines Selbstbehalts nicht aus, um den Bedarf aller gleichrangigen Kinder zu decken, wird die verbleibende <strong>Verteilungsmasse</strong> proportional zu den <strong>Einsatzbeträgen</strong> (den normalen Zahlbeträgen) jedes Kindes aufgeteilt.</p>\n  <div class="index-formula">Verteilungsmasse = Einkommen − Selbstbehalt (1.450 € / 1.200 €)<br>Einsatzbetrag(Kind) = normaler Zahlbetrag nach Alter &amp; Einkommensgruppe<br>Zahlbetrag(Kind) = Einsatzbetrag × Verteilungsmasse ÷ Summe aller Einsatzbeträge</div>\n  <p><strong>Amtliches Beispiel (Anmerkung C, Stand 2026):</strong> Einkommen 1.750 €, drei Kinder (18/7/5 Jahre) → Verteilungsmasse 300 €, Einsatzbeträge 439 €/428,50 €/356,50 € (Summe 1.224 €) → Zahlbeträge 107,60 €/105,02 €/87,38 €. Unser Rechner reproduziert dieses Beispiel exakt (Standardwerte oben).</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(mfFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+var mfScript = '<script>\nfunction renderMfAgeInputs() {\n  var n = parseInt(document.getElementById(\'mf-anzahl\').value) || 1;\n  var wrap = document.getElementById(\'mf-ages\');\n  var defaults = [18, 7, 5, 10];\n  var html = \'<label>Alter der Kinder</label><div class="form-grid" style="margin-top:6px">\';\n  for (var i = 0; i < n; i++) {\n    html += \'<input type="number" class="mf-age-input" min="0" max="17" value="\' + (defaults[i] || 10) + \'" style="margin-bottom:6px">\';\n  }\n  html += \'</div>\';\n  wrap.innerHTML = html;\n}\nfunction calcMangelfall() {\n  var einkommen = parseFloat(document.getElementById(\'mf-einkommen\').value) || 0;\n  var erwerbstaetig = document.getElementById(\'mf-erwerb-ja\').checked;\n  var ages = Array.prototype.map.call(document.querySelectorAll(\'.mf-age-input\'), function (i) { return parseInt(i.value) || 0; });\n  var res = berechneMangelfall(einkommen, ages, erwerbstaetig);\n  document.getElementById(\'mf-out-status\').textContent = res.mangelfall ? \'Mangelfall\' : \'Kein Mangelfall\';\n  document.getElementById(\'mf-out-sub\').textContent = \'Verteilungsmasse: \' + euro(res.verteilungsmasse) + \' · Summe Einsatzbeträge: \' + euro(res.summeEinsatz);\n  var rows = \'<div class="table-wrap"><table class="dt-table"><tr><th>Kind</th><th>Alter</th><th>Einsatzbetrag</th><th>Zahlbetrag</th></tr>\';\n  res.kinder.forEach(function (k, i) {\n    rows += \'<tr><td>Kind \' + (i + 1) + \'</td><td>\' + k.alter + \' J.</td><td>\' + euro(k.einsatzbetrag) + \'</td><td><strong>\' + euro(k.zahlbetrag) + \'</strong></td></tr>\';\n  });\n  rows += \'</table></div>\';\n  document.getElementById(\'mf-per-child\').innerHTML = rows;\n  var note = document.getElementById(\'mf-out-note\');\n  if (res.mangelfall) {\n    note.textContent = \'Mangelfall: die Verteilungsmasse reicht nicht für die volle Deckung aller Kinder, daher anteilige Kürzung. ${RDG}\';\n    note.classList.add(\'warn\');\n  } else {\n    note.textContent = \'Kein Mangelfall: alle Kinder erhalten ihren vollen Zahlbetrag. ${RDG}\';\n    note.classList.remove(\'warn\');\n  }\n  showResult(\'result-mf\');\n}\ndocument.addEventListener(\'DOMContentLoaded\', renderMfAgeInputs);\n</script>'.replace(/\$\{RDG\}/g, RDG.replace(/'/g, "\\'"));
+
+writePage({
+  href: '/mangelfallberechnung/',
+  title: 'Mangelfallberechnung 2026 — Unterhalt bei mehreren Kindern',
+  metaDescription: 'Mangelfallberechnung nach Anmerkung C der Düsseldorfer Tabelle 2026: proportionale Verteilung bei nicht ausreichendem Einkommen. Mit amtlichem Beispiel.',
+  h1: 'Mangelfallberechnung',
+  tagline: 'Proportionale Verteilung bei mehreren Kindern und knappem Einkommen',
+  hasCalc: true,
+  webApp: true,
+  faq: mfFaq,
+  body: mfBody,
+  extraScript: mfScript,
+});
+
+// ---------------------------------------------------------------------------
+// 13. Ratgeber: Unterhalt bei Arbeitslosigkeit
+// ---------------------------------------------------------------------------
+var arbFaq = [
+  { q: 'Muss ich trotz Arbeitslosigkeit Unterhalt zahlen?', a: 'Grundsätzlich ja, soweit Ihr Einkommen (inkl. Arbeitslosengeld/Bürgergeld) den Selbstbehalt übersteigt. Der Kindesunterhalt hat gegenüber minderjährigen Kindern Vorrang vor fast allen anderen Verbindlichkeiten (§ 1609 Nr. 1 BGB).' },
+  { q: 'Was ist die Erwerbsobliegenheit?', a: 'Die Pflicht, sich aktiv und nachweislich um eine angemessene Arbeitsstelle zu bemühen, solange man unterhaltspflichtig ist. Wer diese Pflicht verletzt (z. B. keine Bewerbungen, selbstverschuldete Kündigung), riskiert die Zurechnung eines "fiktiven Einkommens".' },
+  { q: 'Was bedeutet fiktives Einkommen?', a: 'Wird die Erwerbsobliegenheit verletzt, kann das Gericht den Unterhalt so berechnen, als hätte die pflichtige Person das erzielbare Einkommen einer angemessenen Stelle tatsächlich — unabhängig vom tatsächlich niedrigeren oder fehlenden Einkommen.' },
+  { q: 'Schützt mich der Selbstbehalt bei Arbeitslosigkeit?', a: 'Ja. Auch bei Arbeitslosigkeit bleibt Ihnen der notwendige Selbstbehalt (1.200 € nicht erwerbstätig, Stand 2026) erhalten — der Unterhalt darf diesen nicht unterschreiten, außer im Mangelfall-Verteilungsverfahren.' },
+];
+var arbBody = '\n<div class="content container" style="padding-top:52px">\n  <h2 class="section-title">Unterhalt bei Arbeitslosigkeit</h2>\n  <p>Arbeitslosigkeit befreit nicht automatisch von der Unterhaltspflicht. Solange ein Einkommen vorhanden ist (Arbeitslosengeld I, Bürgergeld, Vermögen), wird der Unterhalt auf dieser Basis berechnet — begrenzt durch den Selbstbehalt. Entscheidend ist außerdem, ob die <strong>Erwerbsobliegenheit</strong> erfüllt wird.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Erwerbsobliegenheit — aktiv nach Arbeit suchen</h3>\n  <p>Unterhaltspflichtige müssen sich nachweislich um eine zumutbare Erwerbstätigkeit bemühen (regelmäßige, dokumentierte Bewerbungen). Wer arbeitsfähig ist, aber keine ausreichenden Bemühungen nachweisen kann, riskiert die Zurechnung eines fiktiven Einkommens — der Unterhalt wird dann so berechnet, als würde tatsächlich gearbeitet.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Selbstverschuldete Arbeitslosigkeit</h3>\n  <p>Wer selbst kündigt oder eine verhaltensbedingte Kündigung provoziert, ohne triftigen Grund, muss besonders damit rechnen, dass ein Gericht ein fiktives Einkommen zugrunde legt — die Unterhaltspflicht entfällt dadurch in der Regel nicht.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Was bleibt geschützt?</h3>\n  <p>Der notwendige Selbstbehalt (2026: 1.200 € gegenüber minderjährigen Kindern bei Nichterwerbstätigkeit) bleibt auch bei Arbeitslosigkeit erhalten. Reicht das Einkommen nicht für den Bedarf aller unterhaltsberechtigten Kinder, greift die <a href="/mangelfallberechnung/">Mangelfallberechnung</a>. Zahlt der andere Elternteil nicht oder nicht ausreichend, kann für die Kinder <a href="/unterhaltsvorschuss-rechner/">Unterhaltsvorschuss</a> beantragt werden.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(arbFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+writePage({
+  href: '/unterhalt-bei-arbeitslosigkeit/',
+  title: 'Unterhalt bei Arbeitslosigkeit 2026 — Erwerbsobliegenheit erklärt',
+  metaDescription: 'Unterhalt trotz Arbeitslosigkeit: Erwerbsobliegenheit, fiktives Einkommen und Selbstbehalt erklärt. Was gilt, wenn Sie arbeitslos werden.',
+  h1: 'Unterhalt bei Arbeitslosigkeit',
+  tagline: 'Erwerbsobliegenheit, fiktives Einkommen und Selbstbehalt erklärt',
+  hasCalc: false,
+  webApp: false,
+  faq: arbFaq,
+  body: arbBody,
+});
+
+// ---------------------------------------------------------------------------
+// 14. Ratgeber: Unterhalt für Selbstständige berechnen
+// ---------------------------------------------------------------------------
+var selbstStFaq = [
+  { q: 'Wie wird das Einkommen bei Selbstständigen ermittelt?', a: 'In der Regel durch Durchschnittsbildung der letzten 3 Geschäftsjahre (Gewinnermittlungen/Steuerbescheide), um jährliche Schwankungen auszugleichen — anders als bei Angestellten reicht ein einzelner Monatsverdienst nicht aus.' },
+  { q: 'Werden private Ausgaben über die Firma unterhaltsrechtlich berücksichtigt?', a: 'Nur betrieblich notwendige Ausgaben mindern das unterhaltsrelevante Einkommen. Privat mitgenutzte Positionen (z. B. Firmenwagen mit Privatnutzung) werden anteilig wieder hinzugerechnet.' },
+  { q: 'Darf ich Rücklagen bilden, um weniger Unterhalt zu zahlen?', a: 'Nur in angemessenem, betriebswirtschaftlich nachvollziehbarem Umfang. Überhöhte oder unterhaltsrechtlich nicht anerkannte Rücklagenbildung wird dem Einkommen wieder hinzugerechnet.' },
+  { q: 'Was, wenn mein Einkommen stark schwankt?', a: 'Gerade deshalb wird bei Selbstständigen meist ein Mehrjahresdurchschnitt gebildet. Bei wesentlichen, dauerhaften Änderungen (z. B. Geschäftsaufgabe) kann eine Neuberechnung bzw. Abänderung verlangt werden.' },
+];
+var selbstStBody = '\n<div class="content container" style="padding-top:52px">\n  <h2 class="section-title">Unterhalt für Selbstständige berechnen</h2>\n  <p>Bei Selbstständigen und Freiberuflern lässt sich der Unterhalt nicht einfach aus einer Gehaltsabrechnung ablesen — das unterhaltsrelevante Einkommen wird aus den Geschäftsergebnissen ermittelt, meist über mehrere Jahre gemittelt.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Durchschnittsbildung über mehrere Jahre</h3>\n  <p>Üblich ist die Betrachtung der letzten drei abgeschlossenen Geschäftsjahre (Gewinn- und Verlustrechnungen bzw. Steuerbescheide), um branchen- oder auftragsbedingte Schwankungen auszugleichen. Ein einzelnes schwaches oder starkes Jahr ist damit nicht allein entscheidend.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Korrekturen am Gewinn</h3>\n  <p>Nicht jede steuerlich anerkannte Ausgabe mindert automatisch das unterhaltsrelevante Einkommen. Privat mitgenutzte Positionen (Firmenwagen, Arbeitszimmer) werden anteilig zurückgerechnet, überhöhte Abschreibungen oder unterhaltsrechtlich nicht notwendige Rücklagen können dem Einkommen wieder hinzugerechnet werden.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Warum ein einfacher Online-Rechner hier an Grenzen stößt</h3>\n  <p>Unsere Rechner (<a href="/kindesunterhalt-rechner/">Kindesunterhalt</a>, <a href="/ehegattenunterhalt-rechner/">Ehegattenunterhalt</a>) benötigen als Eingabe das bereits bereinigte Nettoeinkommen. Bei Selbstständigen ist die Ermittlung dieses Ausgangswerts der komplexeste und streitanfälligste Schritt — hier ist eine anwaltliche oder steuerfachliche Prüfung der Geschäftsunterlagen meist unverzichtbar.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(selbstStFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+writePage({
+  href: '/unterhalt-selbststaendige-berechnen/',
+  title: 'Unterhalt für Selbstständige berechnen 2026 — Einkommensermittlung',
+  metaDescription: 'Unterhalt für Selbstständige und Freiberufler: wie das unterhaltsrelevante Einkommen aus Geschäftsergebnissen ermittelt wird.',
+  h1: 'Unterhalt für Selbstständige',
+  tagline: 'Wie das unterhaltsrelevante Einkommen bei Selbstständigen ermittelt wird',
+  hasCalc: false,
+  webApp: false,
+  faq: selbstStFaq,
+  body: selbstStBody,
+});
+
+// ---------------------------------------------------------------------------
+// 15. Ratgeber: Unterhalt verweigern — Folgen
+// ---------------------------------------------------------------------------
+var verwFaq = [
+  { q: 'Was passiert, wenn ich keinen Unterhalt zahle?', a: 'Der Berechtigte kann den Unterhalt gerichtlich titulieren lassen (Jugendamtsurkunde, Beschluss, Vergleich) und anschließend zwangsvollstrecken — z. B. per Lohn- oder Kontopfändung.' },
+  { q: 'Ist Unterhaltsverweigerung strafbar?', a: 'Unter bestimmten Voraussetzungen ja: § 170 StGB (Verletzung der Unterhaltspflicht) stellt es unter Strafe, wenn dadurch der Lebensbedarf des Berechtigten gefährdet wird oder gefährdet würde, obwohl die pflichtige Person leistungsfähig ist oder leistungsfähig sein könnte.' },
+  { q: 'Was ist eine Jugendamtsurkunde und warum ist sie wichtig?', a: 'Ein vollstreckbarer Titel, den das Jugendamt im Rahmen der Beistandschaft kostenlos erstellt. Liegt ein solcher Titel vor, kann bei Nichtzahlung direkt die Zwangsvollstreckung eingeleitet werden, ohne vorher ein Gerichtsverfahren führen zu müssen.' },
+  { q: 'Was, wenn der Unterhaltspflichtige wirklich kein Geld hat?', a: 'Echte Leistungsunfähigkeit (z. B. nachgewiesene Arbeitslosigkeit trotz aktiver Suche) schließt eine Strafbarkeit nach § 170 StGB regelmäßig aus — die zivilrechtliche Unterhaltspflicht kann aber je nach Einzelfall dennoch fortbestehen, ggf. auf Basis eines fiktiven Einkommens.' },
+];
+var verwBody = '\n<div class="content container" style="padding-top:52px">\n  <h2 class="section-title">Unterhalt verweigern — welche Folgen drohen?</h2>\n  <p>Wer geschuldeten Unterhalt nicht zahlt, riskiert sowohl zivilrechtliche Zwangsvollstreckung als auch — unter bestimmten Voraussetzungen — eine Strafbarkeit nach § 170 StGB.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Zivilrechtliche Durchsetzung</h3>\n  <p>Liegt ein vollstreckbarer Titel vor (Jugendamtsurkunde, gerichtlicher Beschluss, notarieller Vergleich), kann der Berechtigte bei Nichtzahlung direkt die Zwangsvollstreckung betreiben — etwa Lohnpfändung beim Arbeitgeber oder Kontopfändung. Ein vorheriges Gerichtsverfahren ist dann nicht mehr nötig.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Strafrechtliche Folgen (§ 170 StGB)</h3>\n  <p>Die vorsätzliche Verletzung einer gesetzlichen Unterhaltspflicht ist strafbar, wenn dadurch der Lebensbedarf des Berechtigten gefährdet wird (oder ohne Hilfe Dritter/Sozialleistungen gefährdet wäre) und die pflichtige Person leistungsfähig ist oder leistungsfähig sein könnte (siehe fiktives Einkommen).</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Absicherung für das Kind</h3>\n  <p>Zahlt der barunterhaltspflichtige Elternteil nicht oder nicht regelmäßig, kann der betreuende Elternteil für minderjährige Kinder <a href="/unterhaltsvorschuss-rechner/">Unterhaltsvorschuss</a> beim Jugendamt beantragen — der Staat zahlt vor und fordert den Betrag anschließend vom Pflichtigen zurück.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(verwFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+writePage({
+  href: '/unterhalt-verweigern-folgen/',
+  title: 'Unterhalt verweigern — Folgen 2026 (Zwangsvollstreckung & § 170 StGB)',
+  metaDescription: 'Was passiert, wenn Unterhalt nicht gezahlt wird: Zwangsvollstreckung, Jugendamtsurkunde und Strafbarkeit nach § 170 StGB erklärt.',
+  h1: 'Unterhalt verweigern — Folgen',
+  tagline: 'Zwangsvollstreckung, Jugendamtsurkunde und § 170 StGB erklärt',
+  hasCalc: false,
+  webApp: false,
+  faq: verwFaq,
+  body: verwBody,
+});
+
+// ---------------------------------------------------------------------------
+// 16. Ratgeber: Unterhalt rückwirkend fordern
+// ---------------------------------------------------------------------------
+var rueckFaq = [
+  { q: 'Kann ich Unterhalt für vergangene Monate rückwirkend fordern?', a: 'Nur eingeschränkt. Nach § 1613 BGB kann Unterhalt grundsätzlich erst ab dem Zeitpunkt verlangt werden, ab dem der Pflichtige zur Auskunft über sein Einkommen aufgefordert wurde, in Verzug gesetzt wurde oder der Unterhaltsanspruch rechtshängig gemacht wurde — nicht beliebig weit rückwirkend.' },
+  { q: 'Was muss ich tun, um rückwirkenden Unterhalt zu sichern?', a: 'Möglichst früh schriftlich zur Auskunft über das Einkommen auffordern und/oder in Verzug setzen (z. B. per Mahnschreiben mit Fristsetzung). Ohne einen dieser Schritte verliert man rückwirkend Ansprüche für die Zeit davor in der Regel unwiederbringlich.' },
+  { q: 'Gibt es Ausnahmen von dieser Regel?', a: 'Ja, etwa wenn der Berechtigte aus rechtlichen oder tatsächlichen Gründen unverschuldet an der Geltendmachung gehindert war. Dies ist einzelfallabhängig und sollte anwaltlich geprüft werden.' },
+  { q: 'Gilt die gleiche Regel für Kindesunterhalt und Ehegattenunterhalt?', a: 'Das Grundprinzip aus § 1613 BGB gilt für beide, mit Detailunterschieden je nach Unterhaltsart. In beiden Fällen ist frühzeitiges, dokumentiertes Handeln (Auskunftsverlangen, Mahnung) entscheidend, um Ansprüche nicht zu verlieren.' },
+];
+var rueckBody = '\n<div class="content container" style="padding-top:52px">\n  <h2 class="section-title">Unterhalt rückwirkend fordern</h2>\n  <p>Viele Berechtigte gehen davon aus, Unterhalt beliebig weit rückwirkend einfordern zu können, sobald der Anspruch feststeht. Das deutsche Unterhaltsrecht schränkt dies jedoch bewusst ein.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Die Grundregel: § 1613 BGB</h3>\n  <p>Rückwirkender Unterhalt kann grundsätzlich erst ab dem Zeitpunkt verlangt werden, in dem der Pflichtige zur Auskunft über sein Einkommen aufgefordert, in Verzug gesetzt oder der Anspruch rechtshängig gemacht wurde. Für die Zeit davor besteht in der Regel kein Anspruch mehr — selbst wenn dem Grunde nach Unterhalt geschuldet gewesen wäre.</p>\n  <h3 style="margin-top:24px;font-size:1.05rem;">Was Sie frühzeitig tun sollten</h3>\n  <p>Um keine Ansprüche zu verlieren, empfiehlt sich ein schriftliches, dokumentiertes Auskunftsverlangen oder eine Mahnung mit Zahlungsaufforderung, sobald der Unterhaltsanspruch erkennbar wird — auch wenn die genaue Höhe noch nicht feststeht. Die Beistandschaft beim <a href="/jugendamt-berechnung/">Jugendamt</a> kann hierbei kostenlos unterstützen.</p>\n\n  <h2 class="section-title">Häufige Fragen</h2>\n  ' + renderFaq(rueckFaq) + '\n</div>\n' + eeatSection(true) + '\n';
+
+writePage({
+  href: '/unterhalt-rueckwirkend-fordern/',
+  title: 'Unterhalt rückwirkend fordern 2026 — § 1613 BGB erklärt',
+  metaDescription: 'Unterhalt rückwirkend fordern: warum § 1613 BGB die Rückwirkung einschränkt und was Sie frühzeitig tun sollten, um Ansprüche zu sichern.',
+  h1: 'Unterhalt rückwirkend fordern',
+  tagline: 'Warum § 1613 BGB die Rückwirkung einschränkt — und was jetzt zu tun ist',
+  hasCalc: false,
+  webApp: false,
+  faq: rueckFaq,
+  body: rueckBody,
 });
 
 console.log('Alle Satelliten-Seiten geschrieben.');

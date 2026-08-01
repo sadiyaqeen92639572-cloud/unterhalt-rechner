@@ -10,25 +10,63 @@ const SITE = 'https://unterhalt-rechner.com';
 const PUBLISHER_NAME = 'Gesmine-Invest Limited';
 const LAST_MOD = '2026-08-01';
 
-const NAV = [
-  { href: '/', label: 'Unterhaltsrechner' },
-  { href: '/kindesunterhalt-rechner/', label: 'Kindesunterhalt' },
-  { href: '/ehegattenunterhalt-rechner/', label: 'Ehegattenunterhalt' },
-  { href: '/trennungsunterhalt-rechner/', label: 'Trennungsunterhalt' },
-  { href: '/unterhaltstabelle/', label: 'Tabelle' },
-  { href: '/selbstbehalt/', label: 'Selbstbehalt' },
-  { href: '/wechselmodell/', label: 'Wechselmodell' },
-  { href: '/unterhalt-ab-18/', label: 'Ab 18' },
-  { href: '/jugendamt-berechnung/', label: 'Jugendamt' },
+const NAV_GROUPS = [
+  {
+    label: 'Kindesunterhalt',
+    items: [
+      { href: '/kindesunterhalt-rechner/', label: 'Kindesunterhalt-Rechner' },
+      { href: '/unterhalt-ab-18/', label: 'Unterhalt ab 18' },
+      { href: '/mangelfallberechnung/', label: 'Mangelfallberechnung' },
+      { href: '/unterhaltsvorschuss-rechner/', label: 'Unterhaltsvorschuss' },
+    ],
+  },
+  {
+    label: 'Ehegatten & Trennung',
+    items: [
+      { href: '/ehegattenunterhalt-rechner/', label: 'Ehegattenunterhalt-Rechner' },
+      { href: '/trennungsunterhalt-rechner/', label: 'Trennungsunterhalt-Rechner' },
+    ],
+  },
+  {
+    label: 'Werkzeuge',
+    items: [
+      { href: '/unterhaltstabelle/', label: 'Düsseldorfer Tabelle' },
+      { href: '/selbstbehalt/', label: 'Selbstbehalt' },
+      { href: '/wechselmodell/', label: 'Wechselmodell' },
+      { href: '/elternunterhalt-rechner/', label: 'Elternunterhalt' },
+    ],
+  },
+  {
+    label: 'Ratgeber & Hilfe',
+    items: [
+      { href: '/jugendamt-berechnung/', label: 'Jugendamt' },
+      { href: '/unterhalt-berechnen-lassen/', label: 'Unterhalt berechnen lassen' },
+      { href: '/unterhalt-bei-arbeitslosigkeit/', label: 'Unterhalt bei Arbeitslosigkeit' },
+      { href: '/unterhalt-selbststaendige-berechnen/', label: 'Unterhalt für Selbstständige' },
+      { href: '/unterhalt-verweigern-folgen/', label: 'Unterhalt verweigern — Folgen' },
+      { href: '/unterhalt-rueckwirkend-fordern/', label: 'Unterhalt rückwirkend fordern' },
+    ],
+  },
 ];
+
+// Flat list retained for pages that still reference every URL (sitemap generation, etc.)
+const NAV = [{ href: '/', label: 'Unterhaltsrechner' }].concat(
+  NAV_GROUPS.reduce(function (acc, g) { return acc.concat(g.items); }, [])
+);
 
 const RDG_DISCLAIMER = 'Diese Berechnung ist eine unverbindliche Orientierungshilfe auf Basis der Düsseldorfer Tabelle 2026 und ersetzt keine individuelle Rechtsberatung. Für eine verbindliche Berechnung Ihres Einzelfalls wenden Sie sich an einen Fachanwalt für Familienrecht oder das zuständige Jugendamt.';
 
 function renderNav(currentHref) {
-  return `<nav class="site-nav">${NAV.map(function (n) {
-    var cur = n.href === currentHref ? ' current' : '';
-    return `<a href="${n.href}" class="${cur.trim()}">${n.label}</a>`;
-  }).join('')}</nav>`;
+  var homeCur = currentHref === '/' ? ' current' : '';
+  var groupsHtml = NAV_GROUPS.map(function (g) {
+    var groupHasCurrent = g.items.some(function (it) { return it.href === currentHref; });
+    var itemsHtml = g.items.map(function (it) {
+      var cur = it.href === currentHref ? ' current' : '';
+      return `<a href="${it.href}" class="${cur.trim()}">${it.label}</a>`;
+    }).join('');
+    return `<div class="nav-group"><button type="button" class="nav-group-btn${groupHasCurrent ? ' current' : ''}" onclick="toggleNavGroup(this)">${g.label} <span class="nav-caret">▾</span></button><div class="nav-dropdown">${itemsHtml}</div></div>`;
+  }).join('');
+  return `<nav class="site-nav"><a href="/" class="${homeCur.trim()}">Unterhaltsrechner</a>${groupsHtml}</nav>`;
 }
 
 function renderFaq(items) {
@@ -55,18 +93,18 @@ function breadcrumbJsonLd(name, href) {
 function eeatSection(compact) {
   if (compact) {
     return `<div class="eeat-section">
-      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
+      <p style="margin-bottom:0"><strong>Methodik &amp; Quellen:</strong> Alle Berechnungen basieren auf der amtlichen <a href="https://www.olg-duesseldorf.nrw.de/infos/Duesseldorfer_Tabelle/Tabelle-2026/DT_2026.pdf" target="_blank" rel="noopener">Düsseldorfer Tabelle, Stand 01.01.2026</a> (OLG Düsseldorf). Redaktion: Josef Müller — Redaktionsleitung. Zuletzt geprüft: ${LAST_MOD}. Kein Anwalt, keine Rechtsberatung — siehe <a href="/about/">Über uns</a> und <a href="/impressum/">Impressum</a>.</p>
     </div>`;
   }
   return `<div class="eeat-section">
     <div class="eeat-title">Transparenz &amp; Methodik</div>
     <div class="eeat-grid">
       <div class="eeat-author-card">
-        <div class="eeat-avatar">UR</div>
+        <div class="eeat-avatar">JM</div>
         <div class="eeat-author-info">
-          <h3>Unterhalt-Rechner.com Redaktion</h3>
-          <div class="eeat-author-subtitle">Herausgeber</div>
-          <p>Diese Seite wird von ${PUBLISHER_NAME} betrieben und bietet kostenlose, werbefreie Unterhaltsrechner auf Basis öffentlich zugänglicher amtlicher Quellen. Kein anwaltlicher Dienst, keine individuelle Rechtsberatung.</p>
+          <h3>Josef Müller</h3>
+          <div class="eeat-author-subtitle">Redaktionsleitung · Zuletzt geprüft: ${LAST_MOD}</div>
+          <p>Diese Seite wird von ${PUBLISHER_NAME} betrieben und bietet kostenlose, werbefreie Unterhaltsrechner auf Basis öffentlich zugänglicher amtlicher Quellen. <strong>Kein Anwalt, kein anwaltlicher Dienst, keine individuelle Rechtsberatung.</strong></p>
         </div>
       </div>
       <div class="eeat-compliance">
@@ -263,6 +301,9 @@ var homeBody = `
     <a class="calc-card" href="/selbstbehalt/"><h3>Selbstbehalt-Rechner</h3><p>Eigenbedarf gegenüber Kindern, Ehegatten, Eltern</p></a>
     <a class="calc-card" href="/wechselmodell/"><h3>Wechselmodell-Rechner</h3><p>Unterhalt bei paritätischer Doppelresidenz</p></a>
     <a class="calc-card" href="/unterhalt-ab-18/"><h3>Unterhalt ab 18</h3><p>Volljährige Kinder, Ausbildung, Studium</p></a>
+    <a class="calc-card" href="/unterhaltsvorschuss-rechner/"><h3>Unterhaltsvorschuss-Rechner</h3><p>Staatliche Ersatzleistung, wenn der andere Elternteil nicht zahlt</p></a>
+    <a class="calc-card" href="/elternunterhalt-rechner/"><h3>Elternunterhalt-Rechner</h3><p>100.000-€-Grenze und rechnerischer Rahmen</p></a>
+    <a class="calc-card" href="/mangelfallberechnung/"><h3>Mangelfallberechnung</h3><p>Proportionale Verteilung bei mehreren Kindern und knappem Einkommen</p></a>
     <a class="calc-card" href="/jugendamt-berechnung/"><h3>Jugendamt-Berechnung</h3><p>Beistandschaft, Beurkundung, Ablauf</p></a>
   </div>
 

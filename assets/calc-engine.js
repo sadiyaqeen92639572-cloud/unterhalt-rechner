@@ -130,6 +130,94 @@ function berechneWechselmodellAusgleich(einkommenA, einkommenB) {
   return Math.round((differenz / 2) * 100) / 100;
 }
 
+/**
+ * Unterhaltsvorschuss (UVG) — staatliche Ersatzleistung, wenn der barunterhaltspflichtige
+ * Elternteil nicht oder nicht regelmäßig zahlt. Betrag = Mindestunterhalt Stufe 1 minus
+ * volles Kindergeld, für Kinder bis 17 Jahre (kein Höchstbezugsdauer-Limit seit Reform 2020).
+ * Quelle: familienportal.de / bmbfsfj.de (Stand 2026), Beträge deckungsgleich mit
+ * DT_TABELLE Stufe 1 minus DT_KINDERGELD_2026.
+ * @param {number} alter Alter des Kindes (0-17)
+ * @param {number} bereitsGezahlterUnterhalt tatsächlich vom anderen Elternteil gezahlter Betrag (wird abgezogen)
+ */
+function berechneUnterhaltsvorschuss(alter, bereitsGezahlterUnterhalt) {
+  if (alter >= 18) {
+    return { anspruchsberechtigt: false, grund: 'Unterhaltsvorschuss wird nur bis zur Volljährigkeit (18) gezahlt.' };
+  }
+  var stufe = ageStufe(alter);
+  var row = DT_TABELLE[0];
+  var maxBetrag = row[stufe] - DT_KINDERGELD_2026;
+  var gezahlt = Math.max(0, bereitsGezahlterUnterhalt || 0);
+  var betrag = Math.max(0, maxBetrag - gezahlt);
+  return {
+    anspruchsberechtigt: true,
+    maxBetrag: Math.round(maxBetrag * 100) / 100,
+    betrag: Math.round(betrag * 100) / 100,
+    bedingung1217: alter >= 12,
+  };
+}
+
+/**
+ * Elternunterhalt (Verwandtenunterhalt gegenüber Eltern, § 1601 BGB / Anmerkung D.I).
+ * Zwei getrennte Regeln, beide amtlich, aber unterschiedlicher Natur:
+ * 1. Freigrenze 100.000 €/Jahr Bruttoeinkommen (Angehörigen-Entlastungsgesetz 2020) —
+ *    fester gesetzlicher Schwellenwert, unterhalb dessen keine Zahlungspflicht besteht.
+ * 2. Oberhalb der Freigrenze: Anmerkung D.I definiert den Selbstbehalt (nicht direkt
+ *    den Unterhalt) als 2.650 € + 70% des darüber hinausgehenden Nettoeinkommens.
+ *    Der maximal denkbare Unterhalt ergibt sich rechnerisch aus Einkommen − Selbstbehalt
+ *    (= 30% des Mehreinkommens) — dies ist KEINE feste Unterhaltsformel wie bei Kindes-
+ *    oder Ehegattenunterhalt, sondern nur der rechnerische Rahmen; das tatsächlich
+ *    geschuldete Ergebnis hängt zusätzlich von Vermögen, weiteren Verpflichtungen und
+ *    der Einzelfallprüfung durch das Sozialamt/Gericht ab.
+ * @param {number} einkommenBruttoJahr Bruttojahreseinkommen des unterhaltspflichtigen Kindes
+ * @param {number} einkommenNettoMonat bereinigtes monatliches Nettoeinkommen
+ */
+function berechneElternunterhalt(einkommenBruttoJahr, einkommenNettoMonat) {
+  if (einkommenBruttoJahr <= 100000) {
+    return { pflichtig: false };
+  }
+  var selbstbehalt = 2650 + 0.7 * Math.max(0, einkommenNettoMonat - 2650);
+  var unterhaltMax = Math.max(0, einkommenNettoMonat - selbstbehalt);
+  return {
+    pflichtig: true,
+    selbstbehalt: Math.round(selbstbehalt * 100) / 100,
+    unterhaltMax: Math.round(unterhaltMax * 100) / 100,
+  };
+}
+
+/**
+ * Mangelfallberechnung nach Anmerkung C: reicht das Einkommen des Pflichtigen nach
+ * Abzug des Selbstbehalts nicht für die Summe der Zahlbeträge aller gleichrangigen
+ * Kinder (§ 1609 Nr. 1 BGB), wird die verbleibende Verteilungsmasse proportional
+ * zu den Einsatzbeträgen (= normale Zahlbeträge) aufgeteilt.
+ * Validiert gegen das amtliche Beispiel der Tabelle 2026 (1.750€, Kinder 18/7/5 →
+ * 107,60/105,02/87,38€).
+ * @param {number} einkommen bereinigtes Nettoeinkommen des Pflichtigen
+ * @param {number[]} kinderAlter Alter jedes Kindes
+ * @param {boolean} erwerbstaetig für den Selbstbehalt (1.450€ erwerbstätig / 1.200€ nicht)
+ */
+function berechneMangelfall(einkommen, kinderAlter, erwerbstaetig) {
+  var selbstbehalt = erwerbstaetig ? DT_SELBSTBEHALT_KIND.erwerb : DT_SELBSTBEHALT_KIND.nichtErwerb;
+  var verteilungsmasse = Math.max(0, einkommen - selbstbehalt);
+  var einsatzbetraege = kinderAlter.map(function (alter) {
+    var r = berechneKindesunterhalt(einkommen, alter);
+    return r.ueberTabelle ? 0 : r.zahlbetrag;
+  });
+  var summeEinsatz = einsatzbetraege.reduce(function (a, b) { return a + b; }, 0);
+  var mangelfall = verteilungsmasse < summeEinsatz;
+  var kinder = kinderAlter.map(function (alter, i) {
+    var einsatz = einsatzbetraege[i];
+    var betrag = mangelfall ? (summeEinsatz > 0 ? (einsatz * verteilungsmasse) / summeEinsatz : 0) : einsatz;
+    return { alter: alter, einsatzbetrag: Math.round(einsatz * 100) / 100, zahlbetrag: Math.round(betrag * 100) / 100 };
+  });
+  return {
+    mangelfall: mangelfall,
+    selbstbehalt: selbstbehalt,
+    verteilungsmasse: Math.round(verteilungsmasse * 100) / 100,
+    summeEinsatz: Math.round(summeEinsatz * 100) / 100,
+    kinder: kinder,
+  };
+}
+
 function euro(n) {
   return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(n);
 }

@@ -50,6 +50,29 @@ Keine gesetzlich fixierte Formel in Deutschland (Einzelfallbetrachtung durch
 Gerichte). Diese Seite bietet nur eine stark vereinfachte Orientierung (hälftige
 Einkommensdifferenz), keine belastbare Berechnung.
 
+## Unterhaltsvorschuss (staatliche Ersatzleistung) 2026
+
+Bis zu 227 € (0-5J.), 299 € (6-11J.), 394 € (12-17J.) monatlich, wenn der
+barunterhaltspflichtige Elternteil nicht/nicht regelmäßig zahlt. Formel:
+Mindestunterhalt Stufe 1 − volles Kindergeld (259 €). Für 12-17-Jährige: Anspruch
+nur ohne bzw. mit ergänzendem Bürgergeld-Bezug (mind. 600 € brutto Eigenverdienst
+des Elternteils). Keine Höchstbezugsdauer seit Reform 2020, gilt bis 18 Jahre.
+
+## Elternunterhalt (Verwandtenunterhalt gegenüber Eltern)
+
+Freigrenze: keine Zahlungspflicht bis 100.000 €/Jahr Bruttoeinkommen des Kindes
+(Angehörigen-Entlastungsgesetz 2020, pro Kind einzeln). Darüber: kein fester
+Formel-Unterhalt wie bei Kindes-/Ehegattenunterhalt, nur rechnerischer Rahmen aus
+Anmerkung D.I der Tabelle: Selbstbehalt = 2.650 € + 70% des Mehreinkommens,
+Unterhalt (Obergrenze) = Einkommen − Selbstbehalt = 30% des Mehreinkommens.
+
+## Mangelfallberechnung (Anmerkung C)
+
+Reicht das Einkommen nach Abzug des Selbstbehalts (1.450€ erwerbstätig / 1.200€
+nicht erwerbstätig) nicht für die Summe der Zahlbeträge aller gleichrangigen
+Kinder, wird die Verteilungsmasse proportional zu den Einsatzbeträgen aufgeteilt:
+Zahlbetrag(Kind) = Einsatzbetrag × Verteilungsmasse ÷ Summe aller Einsatzbeträge.
+
 ## Rechtlicher Hinweis
 
 Alle Berechnungen sind unverbindliche Orientierungswerte und ersetzen keine

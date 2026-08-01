@@ -24,3 +24,15 @@ function showResult(id) {
   r.style.display = 'block';
   r.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+function toggleNavGroup(btn) {
+  var group = btn.parentElement;
+  var wasOpen = group.classList.contains('open');
+  document.querySelectorAll('.nav-group.open').forEach(function (g) { g.classList.remove('open'); });
+  if (!wasOpen) group.classList.add('open');
+}
+document.addEventListener('click', function (e) {
+  if (!e.target.closest('.nav-group')) {
+    document.querySelectorAll('.nav-group.open').forEach(function (g) { g.classList.remove('open'); });
+  }
+});
