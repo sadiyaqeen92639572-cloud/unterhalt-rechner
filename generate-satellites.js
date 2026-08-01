@@ -96,7 +96,7 @@ var tabFaq = [
 ];
 function tableHtml() {
   var rows = DT.DT_TABELLE.map(function (r, i) {
-    return '<tr><td>' + (i + 1) + '</td><td>' + (i === 0 ? 'bis' : DT.DT_TABELLE[i - 1].bis + 1 + ' –') + ' ' + r.bis.toLocaleString('de-DE') + ' €</td><td>' + r.a1 + ' €</td><td>' + r.a2 + ' €</td><td>' + r.a3 + ' €</td><td>' + r.a4 + ' €</td><td>' + r.pct + '%</td><td>' + (r.kontrolle ? r.kontrolle.toLocaleString('de-DE') + ' €' : '1.200 / 1.450 €') + '</td></tr>';
+    return '<tr><td>' + (i + 1) + '</td><td>' + (i === 0 ? 'bis' : (DT.DT_TABELLE[i - 1].bis + 1).toLocaleString('de-DE') + ' –') + ' ' + r.bis.toLocaleString('de-DE') + ' €</td><td>' + r.a1 + ' €</td><td>' + r.a2 + ' €</td><td>' + r.a3 + ' €</td><td>' + r.a4 + ' €</td><td>' + r.pct + '%</td><td>' + (r.kontrolle ? r.kontrolle.toLocaleString('de-DE') + ' €' : '1.200 / 1.450 €') + '</td></tr>';
   }).join('');
   return '<div class="table-wrap"><table class="dt-table"><tr><th>Gr.</th><th>Nettoeinkommen</th><th>0-5 J.</th><th>6-11 J.</th><th>12-17 J.</th><th>ab 18 J.</th><th>%</th><th>Kontrollbetrag</th></tr>' + rows + '</table></div>';
 }
